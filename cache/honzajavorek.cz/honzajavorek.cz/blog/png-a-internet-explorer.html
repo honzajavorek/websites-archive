@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="cs">
+    
+<!-- Mirrored from honzajavorek.cz/blog/png-a-internet-explorer by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 23 Dec 2015 15:17:12 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+        <meta charset="utf-8">
+        <title>PNG a Internet Explorer - Javorové Lístky</title>
+
+        <link rel="stylesheet" href="../theme/css/main.css">
+
+                <link rel="alternate" type="application/rss+xml" title="Javorové lístky – všechny články" href="../feed.xml">
+            <link rel="alternate" type="application/rss+xml" title="Javorové lístky – všechny komentáře" href="http://javorove-listky.disqus.com/latest.rss">
+
+    <link rel="alternate" type="application/rss+xml" title="Javorové lístky – komentáře ke článku PNG a Internet Explorer" href="http://javorove-listky.disqus.com/png_a_internet_explorer/latest.rss">
+
+        <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
+
+        <meta property="og:image" content="../theme/images/logo.png">
+
+        <script>
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', "UA-1316071-6"]);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </head>
+    <body>
+        <div class="container article">
+            <div class="header">
+                <a href="index.html">
+                <div class="hgroup">
+                    <h1>
+Javorové<span class="logo"> </span>lístky                    </h1>
+                       <h2>Honza Javorek</h2>
+                </div>
+                </a>
+            </div>
+
+            <div class="content">
+<div class="article-container">
+    <div class="header">
+        <h1>PNG a Internet Explorer</h1>
+        <small>
+            <time datetime="2007-08-30T11:54:00+02:00" pubdate>2007/08/30</time>
+        </small>
+    </div>
+
+    <div class="article-content">
+
+        <p>Tak pozor milý čtenáři! Avizoval jsem sice předem, že o tvorbě webu psát nechci a nebudu, ale protože jsem přišel na <strong>něco skvělého</strong>, prostě se podělit musím :) . Amerika ještě nebyla objevena celá, a to ani ve webdesignu! B)</p>
+<h2>Alfa, béta, gamma</h2>
+<p>Většina webu se zabývá v souvislosti s PNG a IE <strong>průhledností</strong>, s níž má Explorer velké potíže. Jsou již na světe samozřejmě způsoby, jak to obejít, a rozumnému člověku stačí k jejich odhalení <a href="http://www.google.cz/search?q=png+internet+explorer">Google</a>. O čem se však téměř nikde nepíše (alespoň tedy česky), je také zvláštní zpracování <strong>gamma</strong> hodnot obrázků PNG v IE. Pokud tentýž obrázek PNG zobrazíš ve Firefoxu, Opeře a IE, zjistíš (a to i v IE7), že nejrozšířenější browser holt grafiku zobrazí s mírně <strong>odlišnými odstíny barev</strong>. Jedná-li se o obrázek uprostřed textu, zřejmě ti to bude docela fuk. Jestliže potřebuješ obrázek zasadit do přesného pixelového layoutu, zjistíš, že ti nesedí do barev vykreslovaných prohlížečem pomocí CSS nebo barev ostatních souborů.</p>
+<h2>Spása drcením</h2>
+<p>Řešení? Existuje program <a href="http://pmt.sourceforge.net/pngcrush/">PNGcrush</a>, jenž si umí s formáty PNG a MNG docela slušně pohrát. Jedna z věcí, které dokáže, je právě optimalizace gamma hodnoty tak, aby se s ním popral i IE. Program je ke stažení i pod Windows – jedna <em>exe binárka</em>, nemusí se samozřejmě instalovat a spouští se z příkazového řádku. Soubor <strong>pngcrush.exe</strong> si tedy nahraj do adresáře se všemi <em>postiženými</em> obrázky a pak za hlubokých meditací prones magickou formuli</p>
+<pre class="highlight"><code>pngcrush -rem alla -d out *.png
+</code></pre>
+
+
+<h2>Výsledek?</h2>
+<p>Výsledek skvostný :) . Vše se zobrazuje, jak má. Můžeme již jen provolat slávu Internet Exploreru, jelikož bez něj by byl náš webdesignerský život zcela <strong>nudný a nezáživný</strong>, rutinní… Měli bychom spoustu zbytečného času a hlavně, o dost méně práce. A to přece nikdo nechceme, vždyť nás tahle práce živí a <strong>baví</strong>… ;)</p>
+    </div>
+
+    <div class="loading-area">
+        <hr>
+
+        <div class="profile">
+            <h3><a href="../index.html">Honza Javorek</a></h3>
+            <p>
+                Přispívám v <a href="http://apiary.io/">Apiary.io</a> k tomu, aby se stal <a href="http://apiblueprint.org/">API Blueprint</a> nejlepším formátem pro popis webových API. Pomáhám v ČR <a href="proc-python.html">propagovat jazyk Python</a>. Profesní články píšu pro <a href="http://www.zdrojak.cz/autori/honza-javorek">Zdroják</a>.
+            </p>
+        </div>
+
+        <hr>
+        <div id="comments">
+            <div class="widget kindle-container kindleWidget">
+                <img src="https://d1xnn692s7u6t6.cloudfront.net/black-15.png"><span>Kindle</span>
+            </div>
+            <div class="widget fb-like-container">
+                <div class="fb-like" data-send="false" data-width="450" data-show-faces="false"></div>
+            </div>
+            <div id="disqus_thread"></div>
+            <script>
+                var disqus_shortname = "javorove-listky";
+                var disqus_developer = 0;
+                //var disqus_url = 'http:\/\/honzajavorek.cz\/blog\/' + "png-a-internet-explorer";
+                var disqus_title = "PNG a Internet Explorer";
+
+                (function() {
+                    var dsq = document.createElement('script'); dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript><p class="noscript"><em>Bez JavaScriptu komentáře nejsou, se s tim smiř.</em></p></noscript>
+        </div>
+    </div>
+
+    <div class="footer">
+            <p class="aside-links"><a href="http://javorove-listky.disqus.com/png_a_internet_explorer/latest.rss">RSS komentářů</a></p>
+    </div>
+</div>            </div>
+        </div>
+
+        <div class="footer">
+            <h3>Zahradník</h3>
+            <p>© 2007–2015 <a href="../index.html">Honza Javorek</a></p>
+        </div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+        <script src="../theme/js/main.js"></script>
+        <script async src="http://platform.twitter.com/widgets.js"></script>
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'http://connect.facebook.net/en_US/all.js#xfbml=1';
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript" src="https://d1xnn692s7u6t6.cloudfront.net/widget.js"></script>
+<script type="text/javascript">
+    (function k(){window.$SendToKindle&&window.$SendToKindle.Widget?$SendToKindle.Widget.init({"content":".article-container","exclude":".article-container .loading-area, .article-container .footer"}):setTimeout(k,500);})();
+</script>
+    </body>
+
+<!-- Mirrored from honzajavorek.cz/blog/png-a-internet-explorer by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 23 Dec 2015 15:17:12 GMT -->
+</html>
