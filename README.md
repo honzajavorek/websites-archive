@@ -1,6 +1,6 @@
 # Websites Archive
 
-Archive of some websites I have relationship to.
+Archive of some websites.
 
 ## Requirements
 
