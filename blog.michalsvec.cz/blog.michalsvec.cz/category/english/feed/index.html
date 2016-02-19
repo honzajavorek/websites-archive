@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>English &#8211; &#8230;loading</title>
+	<atom:link href="http://blog.michalsvec.cz/category/english/feed/" rel="self" type="application/rss+xml" />
+	<link>http://blog.michalsvec.cz</link>
+	<description></description>
+	<lastBuildDate>Sat, 15 Nov 2014 09:58:05 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	
+	<item>
+		<title>Combination of MAMP, RoR and MySQL database</title>
+		<link>http://blog.michalsvec.cz/2010/combination-of-mamp-ror-and-mysql-database/</link>
+		<comments>http://blog.michalsvec.cz/2010/combination-of-mamp-ror-and-mysql-database/#respond</comments>
+		<pubDate>Sun, 11 Jul 2010 17:46:05 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[English]]></category>
+		<category><![CDATA[Mac]]></category>
+
+		<guid isPermaLink="false">http://blog.xn--vec-zza.eu/?p=94</guid>
+		<description><![CDATA[I am PHP developer and on local machine, I am developing with MAMP. Excellent combination of Apache, PHP and MySQL. When I was testing Ruby on Rails, I wanted to use my current MySQL databases from MAMP. It wasn&#8217;t so easy as I expected. Here is one possible sollution: Install MySQL with Homebrew. brew install [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>I am PHP developer and on local machine, I am developing with MAMP. Excellent combination of Apache, PHP and MySQL. When I was testing Ruby on Rails, I wanted to use my current MySQL databases from MAMP. It wasn&#8217;t so easy as I expected. Here is one possible sollution:<span id="more-94"></span></p>
+<ol>
+<li> Install MySQL with <a href="http://mxcl.github.com/homebrew/">Homebrew</a>.
+<pre class="brush:bash">brew install mysql</pre>
+</li>
+<li>Install MySQL gem
+<pre class="brush:bash">gem install mysql</pre>
+</li>
+<li>Set the socket in the database connection in <em>database.yml</em> to:
+<pre class="brush:bash">    adapter:  mysql
+    database: dbname
+    username: user
+    password: pass
+    socket: /Applications/MAMP/tmp/mysql/mysql.sock</pre>
+</li>
+<li>Start Mongrel with
+<pre class="brush: bash">script/server</pre>
+</li>
+</ol>
+<p>If you will run to troubles with this message:</p>
+<pre class="brush: bash">Status: 500 Internal Server Error
+uninitialized constant MysqlCompat::MysqlRes</pre>
+<p>run this command:</p>
+<pre class="brush:bash">export ARCHFLAGS="-arch i386 -arch x86_64"
+gem install mysql -- --with-mysql-dir=/usr/local --with-mysql-config=/usr/local/bin/mysql_config</pre>
+<hr />I hope, this will help. If you have better sollution, let me know in comments.</p>
+<div style="size: 8px;">Sources:<br />
+http://ozmm.org/posts/homebrew___mysql___snow_leopard.html<br />
+http://stribny.name/zapisnik/?clanky/ruby-on-rails-na-mac-os</div>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2010/combination-of-mamp-ror-and-mysql-database/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Recoder launched</title>
+		<link>http://blog.michalsvec.cz/2009/recoder-launched/</link>
+		<comments>http://blog.michalsvec.cz/2009/recoder-launched/#respond</comments>
+		<pubDate>Tue, 22 Sep 2009 16:55:04 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[English]]></category>
+		<category><![CDATA[Web]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/?p=51</guid>
+		<description><![CDATA[I&#8217;ve just launched online file recoder. It is tool intended to change file encoding from one to another. You can use it for fixing movie subtitles encoding, Note, that it is only beta. You can report bugs or suggest new features here. New input and output encodings will be available in future versions.]]></description>
+				<content:encoded><![CDATA[<p>I&#8217;ve just launched <a href="http://recoder.ufb.cz">online file recoder</a>. It is tool intended to change file encoding from one to another. You can use it for fixing movie subtitles encoding,</p>
+<p>Note, that it is only beta. You can report bugs or suggest new features <a href="http://featurelist.org/projects/details/recoder">here</a>. New input and output encodings will be available in future versions.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2009/recoder-launched/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Adobe Photoshop and There was an error&#8230;</title>
+		<link>http://blog.michalsvec.cz/2009/adobe-photoshop-and-there-was-an-error/</link>
+		<comments>http://blog.michalsvec.cz/2009/adobe-photoshop-and-there-was-an-error/#comments</comments>
+		<pubDate>Tue, 01 Sep 2009 22:47:54 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[English]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/?p=47</guid>
+		<description><![CDATA[Every time I opened new document in Adobe Photoshop CS3, I got this message: There was an error opening your printer. Printing functions  will not be available until you have selected a printer and reopened any documents. I was lazy to figure it out, but not for long. The solution is enable the Print spooler service [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Every time I opened new document in Adobe Photoshop CS3, I got this message: <em>There was an error opening your printer. Printing functions  will not be available until you have selected a printer and reopened any documents. </em>I was lazy to figure it out, but not for long.</p>
+<p>The solution is enable the <strong>Print spooler </strong>service in <em>Computer management -&gt; Services and applications -&gt; Services</em>. The best bet is to set this service to automatic start.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2009/adobe-photoshop-and-there-was-an-error/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Gmail as a webmail service in Opera 10</title>
+		<link>http://blog.michalsvec.cz/2009/gmail-as-a-webmail-service-in-opera-10/</link>
+		<comments>http://blog.michalsvec.cz/2009/gmail-as-a-webmail-service-in-opera-10/#comments</comments>
+		<pubDate>Tue, 18 Aug 2009 17:38:04 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[English]]></category>
+		<category><![CDATA[Linux]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/?p=40</guid>
+		<description><![CDATA[Opera 10 has cool new feature. If you click on mailto link, it opens new tab with your favourite webmail service.  You can add Hotmail, Yahoo mail, Gmail etc. Here is simple solution for  Gmail.com. Turn off Opera! Edit file webmailproviders.ini. On linux located in /usr/share/opera/defaults. Add following lines [Gmail.com] ID=8 URL=https://mail.google.com/mail/?view=cm&#38;fs=1&#38;to=%t&#38;su=%j&#38;body=%m ICON=http://mail.google.com/mail/images/favicon.ico Save and close [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Opera 10 has cool new feature. If you click on mailto link, it opens new tab with your favourite webmail service.  You can add Hotmail, Yahoo mail, Gmail etc. Here is simple solution for  Gmail.com.</p>
+<ol>
+<li>Turn off Opera!</li>
+<li>Edit file <em>webmailproviders.ini</em>. On linux located in /usr/share/opera/defaults.</li>
+<li>Add following lines<br />
+<em>[Gmail.com]<br />
+ID=8<br />
+URL=https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=%t&amp;su=%j&amp;body=%m<br />
+ICON=http://mail.google.com/mail/images/favicon.ico</em></li>
+<li>Save and close</li>
+<li>Start Opera, open Tools-&gt;Preferences-&gt;Advanced-&gt;Programs and edit <em>mailto: </em>protocol. Set your webmail as default</li>
+</ol>
+<p>Now you can send mails with your webmail service instead of desktop app.<br />sample ap lit essays <a href='http://domyessayforme.com'>rush my writing </a> amelia earhart essay<br /><a href='http://essayyoda.com/write-my-essay/'>write a persuasive essay</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2009/gmail-as-a-webmail-service-in-opera-10/feed/</wfw:commentRss>
+		<slash:comments>4</slash:comments>
+		</item>
+		<item>
+		<title>Opera and white system font problem</title>
+		<link>http://blog.michalsvec.cz/2009/opera-and-white-system-font-problem/</link>
+		<comments>http://blog.michalsvec.cz/2009/opera-and-white-system-font-problem/#comments</comments>
+		<pubDate>Wed, 25 Feb 2009 00:49:20 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[English]]></category>
+		<category><![CDATA[Linux]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/?p=31</guid>
+		<description><![CDATA[Opera has some strange color issues, which makes me very angry. E.g. if I had white system font, I couldn&#8217;t see it in notes panel or address bar. Because there was white background and white font. Here is simple trick how to change it: make shell script (in Linux) or  shortcut (Windows) and put code [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Opera has some strange color issues, which makes me very angry. E.g. if I had white system font, I couldn&#8217;t see it in notes panel or address bar. Because there was white background and white font.</p>
+<p>Here is simple trick how to change it:<br />
+make shell script (in Linux) or  shortcut (Windows) and put code bellow in it:</p>
+<pre>opera -fg black -bg white</pre>
+<p>Next time, you want to run  Opera &#8211; run this script/shortcut. You will have white background and black text in panels, toolbars etc.<br />book title in essay <a href='http://typemyessayonline.com/'>writing for me </a> sample compare and contrast essay</p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2009/opera-and-white-system-font-problem/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Vertical centering</title>
+		<link>http://blog.michalsvec.cz/2009/vertical-centering/</link>
+		<comments>http://blog.michalsvec.cz/2009/vertical-centering/#comments</comments>
+		<pubDate>Wed, 11 Feb 2009 01:55:53 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[English]]></category>
+		<category><![CDATA[Web]]></category>
+		<category><![CDATA[center]]></category>
+		<category><![CDATA[css]]></category>
+		<category><![CDATA[html]]></category>
+		<category><![CDATA[jquery]]></category>
+		<category><![CDATA[vertical]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/blog/?p=20</guid>
+		<description><![CDATA[Simple and elegant vertical HTML centering. All we need is jQuery (jquery.com). With simple snipet, we can center whatever we want inside any element. The idea is simple: move child element to vertical center with margin-top. Everything you have to do is put this simple code into head of your html file. &#60;script type="text/javascript"&#62; $(document).ready(function(){ [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Simple and elegant vertical HTML centering.</p>
+<p>All we need is jQuery (<a href="http://www.jquery.com">jquery.com</a>). With simple snipet, we can center whatever we want inside any element. The idea is simple: move child element to vertical center with margin-top.</p>
+<p>Everything you have to do is put this simple code into head of your html file.</p>
+<pre>&lt;script type="text/javascript"&gt;</pre>
+<pre>$(document).ready(function(){</pre>
+<pre>    $('.vc').each(function(){</pre>
+<pre>        var thish = $(this).height();</pre>
+<pre>        var parenth = $(this).parent().height();</pre>
+<pre>        var topmargin = (parenth - thish) / 2;</pre>
+<pre>        $(this).css('margin-top', topmargin);</pre>
+<pre>    });</pre>
+<pre>});</pre>
+<pre>&lt;/script&gt;</pre>
+<p>This should work on all elementswith class <em><strong>.vc</strong></em>.</p>
+<p>If you want it like function you should check <a href="http://seodenver.com/2008/09/08/simple-vertical-align-plugin-for-jquery/">this link</a>.<br /><a href='http://eventicketsale.com/Foo-Fighters-England-Tour-Tickets.html'>foo fighter concert dates</a><br /><a href='http://admiralavtomaty.com/igrosoft-besplatno/chukchi-man/'>http://admiralavtomaty.com/igrosoft-besplatno/chukchi-man/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2009/vertical-centering/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+	</channel>
+</rss>

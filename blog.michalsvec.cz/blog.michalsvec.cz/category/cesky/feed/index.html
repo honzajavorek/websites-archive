@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Česky &#8211; &#8230;loading</title>
+	<atom:link href="http://blog.michalsvec.cz/category/cesky/feed/" rel="self" type="application/rss+xml" />
+	<link>http://blog.michalsvec.cz</link>
+	<description></description>
+	<lastBuildDate>Sat, 15 Nov 2014 09:58:05 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	
+	<item>
+		<title>Nejlepší způsob zálohování</title>
+		<link>http://blog.michalsvec.cz/2011/nejlepsi-zpusob-zalohovani/</link>
+		<comments>http://blog.michalsvec.cz/2011/nejlepsi-zpusob-zalohovani/#respond</comments>
+		<pubDate>Sun, 24 Jul 2011 10:45:04 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Mac]]></category>
+		<category><![CDATA[backup]]></category>
+		<category><![CDATA[mac]]></category>
+		<category><![CDATA[rsync]]></category>
+
+		<guid isPermaLink="false">http://blog.michalsvec.cz/?p=118</guid>
+		<description><![CDATA[Jelikož se mi nedávno (i přesto, že jsem měl Time Machine zálohu) podařilo díky zapomnětlivosti opět přijít o některá data, zkoumal jsem jakým způsobem udělat automatické a rychlé zálohování. Pro MAC OS X existuje řada programů, které dokáží zálohovat aplikace, nastavení, složky atp. Některé z nich jsem vyzkoušel, ale nenašel jsem žádný, který by měl [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Jelikož se mi nedávno (i přesto, že jsem měl Time Machine zálohu) podařilo díky zapomnětlivosti <a href="http://blog.michalsvec.cz/2010/backup-format-restore-fail/">opět</a> přijít o některá data, zkoumal jsem jakým způsobem udělat automatické a rychlé zálohování. Pro MAC OS X existuje řada programů, které dokáží zálohovat aplikace, nastavení, složky atp. Některé z nich jsem vyzkoušel, ale nenašel jsem žádný, který by měl intuitivné ovládání, uměl zálohovat jak na disk, tak na vzdálený stroj pomocí SFTP a uměl dělat inkrementální zálohy.</p>
+<p>Naštěstí jsem na <a href="http://lifehacker.com">lifehackeru</a> narazil na <a href="http://lifehacker.com/196122/geek-to-live--mirror-files-across-systems-with-rsync">zajímavý článek</a>. Pomocí nástroje rsync je možné synchronizovat adresář. Oproti Time Machine nenabízí historii úprav, ale pro zálohu souborů je to skvělé řešení. Pokusím se proto popsat jednoduchý způsob jak nastavit zálohy na vzdálený server, externí disk popř. ze serveru na localhost.</p>
+<p><span id="more-118"></span></p>
+<p>Vzhledem k tomu, že rsync umožňuje synchronizaci přes SSH, hodí se skvěle pro zálohování serverů na lokální počítač, ale i pro zálohování lokálního počítače na vzdálený stroj. V mém případě je to počítač doma, který jednou za čas nechám zapnout a nakopíruju na něj všechna data. Výhodou rsyncu je, že umoňuje přenášet pouze patche souborů (jen části, které byly v souboru změněny). Ušetří se tak bandwidth a zkrátí čas potřebný pro upload. Při zálohování na externí disk je lepší tuto možnost vypnout, jelikož více zatěžuje procesor.</p>
+<p>Možností pro zálohu ne nespočetně. Je možné vybírat jen určité soubory, nebo naopak určité soubory ignorovat. Je možné také omezit soubory podle velikosti atd.</p>
+<h2>Ukázka skriptu</h2>
+<p>Pro jednoduché a rychlé nastavení zálohoví je možné použít můj skript, který mám ozkoušený. Další informace nabízí manuálová stránka rsyncu nebo internet, kde je možné nalézt velké množství návodů.</p>
+<h3>Záloha na vzdáleny stroj</h3>
+<pre class="brush:bash">rsync -avzW -S --delete --exclude-from=ignore.txt /Users/ uzivatel@vzdaleny-stroj.cz:/home/uzivatel/zaloha/</pre>
+<h3>Záloha na externí disk</h3>
+<pre class="brush:bash">rsync -avz -S --delete --exclude-from=ignore.txt  /Users/ /Volumes/HDD/backup/</pre>
+<h3 class="brush:bash">Popis parametrů</h3>
+<ul>
+<li><em>-a</em>  archive mode: rekurzivne prochází a zachovává linky, práva, timestamp, owner a group</li>
+<li><em>-v</em>  verbose režim: vypisuje hlášky do konzole</li>
+<li><em>-z</em>  zapnutí komprese přenášených dat</li>
+<li><em>-r</em>  rekurzivní procházení adresářů (nemusí se uvádět při použití přepínače <em>a</em>)</li>
+<li><em>-u</em>  nepřepíše soubory, které jsou v cílové složce modifikované</li>
+<li><em>&#8211;progress </em> zobrazí postup během zálohy v konzoli</li>
+<li><em>&#8211;delete  </em>pokud je v cílové složce soubor, který není zároveň ve zdrojové, tak ho smaže</li>
+<li><em>-W</em>  vypne přenášení změněných částí souboru (přenáší celé změněné soubory) &#8211; méně náročné na procesor</li>
+<li><em>&#8211;exclude-from=soubor.txt</em>  vyřadí soubory uvedené v <em>soubor.txt</em> ze zálohování</li>
+</ul>
+<p><span class="Apple-style-span" style="font-size: 20px;"><strong><br />
+</strong></span></p>
+<div>Doufám, že tímto moje strasti při obnovování systému končí a budu mít vždy funkční zálohu nejméně na dvou místech. Rád se dozvím o dalších možnostech konfigurace nebo o jiných nástrojích pro zálohu systému v komentářích. Pochybuju ale, že rsync bude něčím překonán.
+</div>
+<div><span style="color: #999999;"><br />A na závěr obligátní upozornění, že neručim za škody způsobené používáním rsyncu.</span></div>
+<p><a href='http://igrat-avtomaty-vulkan.com/'>игровые автоматы играть бесплатно вулкан</a><br /><a href='http://onlinekasyno48.pl/'>http://onlinekasyno48.pl/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2011/nejlepsi-zpusob-zalohovani/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Proč se rozhodnout pro MAC?</title>
+		<link>http://blog.michalsvec.cz/2010/proc-se-rozhodnout-pro-mac/</link>
+		<comments>http://blog.michalsvec.cz/2010/proc-se-rozhodnout-pro-mac/#respond</comments>
+		<pubDate>Mon, 06 Sep 2010 23:52:27 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Mac]]></category>
+
+		<guid isPermaLink="false">http://blog.michalsvec.cz/?p=109</guid>
+		<description><![CDATA[MacBook mám už nějaký ten pátek, tak bych se také rád podělil o svůj pohled na věc. Proč jsem si ho pořídil já? Moje začátky s PC sahají do dob MS-DOSu. Postupem času jsem přešel přes skoro všechny verze Windows, až jsem se dostal k Linuxu. U toho jsem vydržel zhruba dva roky, za které [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>MacBook mám už nějaký ten pátek, tak bych se také rád podělil o svůj pohled na věc.</p>
+<p><span id="more-109"></span></p>
+<h2>Proč jsem si ho pořídil já?</h2>
+<p>Moje začátky s PC sahají do dob MS-DOSu. Postupem času jsem přešel přes skoro všechny verze Windows, až jsem se dostal k Linuxu. U toho jsem vydržel zhruba dva roky, za které jsem se dost naučil Vyzkoušel jsem několik distribucí, ale stále jsem nebyl spokojen. Oproti Windows měl Linux nespočet výhod. Balíčkovací systém místo těžkopádné instalace aplikací, updaty aplikací skoro každý den, vynikající možnost práce s příkazovou řádkou, home partition, která skvěle usnadňuje zálohu a spoustu dalších věcí. S Linuxem jsem byl nějaký čas spokojený.</p>
+<p>Horší to však bylo s aplikacemi. Velká většina z nich byly programy špatně ovladatelné, chybové, padající a nespolehlivé. Ve výsledku to znamenalo, že jsem trávil poměrně dost času laděním aplikací, hledáním chyb a jejich řešení, neustálým nastavováním a podobnými věcmi. Když pak přišel update systému, nebo se nějaký soubor poškodil, znamenalo to další komplikace. Podpora multimédií na tom nebyla o moc lépe.</p>
+<p>Po menším přesvědčování v mém okolí jsem se rozhodl, že to zkusím.</p>
+<h2>Začátky s MACem</h2>
+<p>První dva týdny byly opravdu krušné. Změnu v ovládání jsem nemohl přenést přes srdce. Podivná práce s plochami, Dock, ovládání oken na levé straně, iTunes a další věci, na které jsem nebyl zvyklý mi nenechaly pár dní spát. Po týdnu používání jsem byl dokonce rozhodnut MacBook prodat a pořídit si klasický notebook. Naštěstí jsem vydržel a postupně se problémy ztrácely, zvykal jsem si na ovládání a odlišnosti a nakonec jsem skončil skoro úplně spokojen.</p>
+<p>Skvělé je jak zpracování notebooku, tak operační systém (který se na spokojenosti podepisuje více).</p>
+<h2>Pořád není jasné, co je na tom tak skvělé!</h2>
+<p>Co se týče hardwaru, je vidět, že při návrhu inženýři Applu přemýšleli. Na spodní straně notebooku není žádný otvor. Nestane se tak, že když mám počítač na kolenou, tak se přehřívá. Výfuk i sání vzduchu, stejně tak jako reproduktory, je vyvedeno na zadní straně, před víkem. Stejně tak výstup na sluchátka je na straně, což je pro práci s notebookem na noách pohodlnější(můj předchozí notebook, měl tento výstup na přední straně).</p>
+<p>Další skvělou vlastností je výdrž na baterky, která se pohybuje okolo 4-5 hodin. Nesmím zapomenout ani na klávesnici, na které se píše přímo skvěle.</p>
+<p>Poněkud nepříjemná vlastnost je miniDVI port pro externí monitor, který vyžaduje redukci za cca 800 Kč, a pouze 2 USB porty, kde jeden je dokonce bez napájení, takže v něm nefunguje například externí USB harddisk.</p>
+<h2>Skvělý operační systém</h2>
+<p>Hlavní věcí, která děla MAC MACem, je MAC OS X. Vzhledově perfektně propracovaný, skvěle ovladatelný a stabilní systém, se kterým je radost pracovat. Když se člověk přenese přes nezvyklé prvky, jako je stabilní lišta u horního okraje obrazovky, ovládací tlačítka na levé straně a jiná práce s okny, začne si uvědomovat, že jednotnost vzhledu aplikací je vlastně pro dobro věci a že to usnadňuje orientaci v celém systému. Lišta na jednom místě má také svůj smysl. Člověk nemusí sledovat okno a ví, že vždy najde všechny volby u horního okraje obrazovky.</p>
+<p>Poměrně rychle jsem si zvykl i na <a href="http://en.wikipedia.org/wiki/Expos%C3%A9_(Mac_OS_X)" target="_blank">Exposé</a>. Zvláště když hledám ztracené okno, nebo potřebuji použít plochu. Práce s více plochami mě však nezaujala. K tomu se dostanu dále.</p>
+<h2>Základ jsou aplikace</h2>
+<p>Aplikace pro MAC OS X a Linux jsou neporovnatelné. Práce s nimi je příjemná, intuitivní a rychlá. Navíc i dobře vypadají na pohled. Aplikace je ve většině případů záležitost jednoho přetáhnutí myši a jejich smazaní taktéž. Všechna nastavení se uchovávají v domovské složce uživatele, takže po obnově systému je aplikace opět připravena fungovat tak, jako když jí uživatel naposledy vypnul. Aby aplikace nečekaně spadla se také stane jen málokdy.</p>
+<p>S dostupností aplikací je to různé. Existuje spousta volně dostupného softwaru, který je navíc i kvalitní. Stále je tu ale dost aplikací, které jsou placené. Někdy stačí na nákup několik dolarů, jindy se cena vyšplhá i ke stovce.</p>
+<h2>Už jsem přesvědčen, ale jsou tu ještě nějaké výhody?</h2>
+<p>MAC má spoustu užitečných funkcí a vychytávek o kterých už bylo napsáno mnoho článků. Proto už jen krátce zmíním ty věci, které jsem dosud nezmínil a které stojí za řeč.</p>
+<p>První z nich je Time machine. Skvělý automatický zálohovací software, který mi dodává takový pocit jistoty, jaký je zmiňován v mnoha televizních reklamách. Při ztrátě dat, nebo přepsání důležitých souborů je dostupná hodinová záloha. Po reinstalaci systému tak stačí spustit obnovu a systém je připraven k práci v takovém stavu, v jakém byl naposledy ponechám.</p>
+<p>Další skvělou věcí je podpora utilit známých z Linuxu. Bez problému je tak možné používat git, ssh a další CLI programy.</p>
+<h2>Vše má i svojí zápornou stránku</h2>
+<p>I když jsem zatím pouze chválil, tak jsou některé vlastnosti, které mi doposud vadí. Jak jsem zmiňoval výše, podpora ploch není pro mě úplně ideální. Je to z toho důvodu, že nelze nastavit, aby v přepínači aplikací (cmd+Tab) byly vidět pouze aplikace zobrazené pouze na aktuální ploše.</p>
+<p>Také jsem si zatím nezvykl na to, že chybí klávesy home a end, které jsem dřív hodně používal. Existuje za to sice náhrada v pohode cmd a šipek doleva a doprava, ale ta nefunguje všude a jednotně.</p>
+<p>Největší slabina na konec. Nevím zda jsem sám, ale mně iTunes nevyhovuje. Skvělá je integrace a služby, které nabízí. iTunes U, nebo sledování podcastu v něm je velmi přehledné a jednoduché, ale jako klasický přehrávač hudby už dost pokulhává.  Byl jsem zvyklý na skvělý Amarok. Oproti němu však iTunes nemá například řazení do fronty nebo záložkování ve stopách, což mi poměrně dost chybí. Nepříjemnou vlastností je také reakce na klávesu play. To se projeví například když chci zastavit film ve VLC. Bohužel jsem nenašel žádnou vhodnou alternativu.</p>
+<h2>Už je tu konec</h2>
+<p>To jsou mé postřehy po zhruba půl roce s MACem. Jsem rád, že jsem ho na začátku neprodal. Pracuje se mi na něm skvěle a jsem velice spokojený.<br /><a href='http://writermyessay.com/'>writing essay service </a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2010/proc-se-rozhodnout-pro-mac/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Expresradio ve VLC</title>
+		<link>http://blog.michalsvec.cz/2010/express-radio-ve-vlc/</link>
+		<comments>http://blog.michalsvec.cz/2010/express-radio-ve-vlc/#respond</comments>
+		<pubDate>Tue, 20 Jul 2010 19:52:37 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+
+		<guid isPermaLink="false">http://blog.xn--vec-zza.eu/?p=105</guid>
+		<description><![CDATA[Chvíli zkoumání mi to dalo a proto se podělím o zkušenosti. Pokud chcete přehrávat Expres rádio ve svém oblíbeném přehrávači, postupujte podle následujícího postupu.Vysvětlím jak přidat streadm do VLC. V ostatních přehrávačích by měl být postup obdobný. Zvolte v menu Soubor-&#62;Otevřít ze sítě. Jako URL zadejte: http://www.play.cz/radio/expres128.asx Bohužel v iTunes bez úspěchu.format of an essay [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Chvíli zkoumání mi to dalo a proto se podělím o zkušenosti. Pokud chcete přehrávat <a href="http://expresradio.idnes.cz/">Expres rádio</a> ve svém oblíbeném přehrávači, postupujte podle následujícího postupu.<span id="more-105"></span>Vysvětlím jak přidat streadm do VLC. V ostatních přehrávačích by měl být postup obdobný.</p>
+<ol>
+<li>Zvolte v menu Soubor-&gt;Otevřít ze sítě.</li>
+<li>Jako URL zadejte: <em>http://www.play.cz/radio/expres128.asx</em></li>
+</ol>
+<p>Bohužel v iTunes bez úspěchu.<br />format of an essay <a href='http://assignmentwritings.com.au/do-not-wait-for-the-muse-order-essay-writing-at-assignmentwritings-com-au/'>essay writing australia </a> self assessment essay</p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2010/express-radio-ve-vlc/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+<enclosure url="http://www.play.cz/radio/expres128.asx" length="386" type="video/asf" />
+		</item>
+		<item>
+		<title>Database dumper</title>
+		<link>http://blog.michalsvec.cz/2010/database-dumper/</link>
+		<comments>http://blog.michalsvec.cz/2010/database-dumper/#respond</comments>
+		<pubDate>Sun, 27 Jun 2010 13:26:31 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Web]]></category>
+		<category><![CDATA[database]]></category>
+		<category><![CDATA[dump]]></category>
+		<category><![CDATA[tool]]></category>
+
+		<guid isPermaLink="false">http://blog.xn--vec-zza.eu/?p=90</guid>
+		<description><![CDATA[Na githubu jsem vyvěsil skript pro export velkých databází. Hlavním důvodem pro jeho napsání byl neskutečně pomalý databázový stroj webhostingu Fatcow, který nedovolil export databáze v phpMyAdminu kvůli časovému omezení běhu PHP skriptu. Napsal jsem proto jednoduchý nástroj pro export databáze, který využívá HTML redirectu po exportování malého počtu řádků, který dtb. stroj ještě zvládne. [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Na githubu jsem vyvěsil skript pro export velkých databází. Hlavním důvodem pro jeho napsání byl neskutečně pomalý databázový stroj webhostingu Fatcow, který nedovolil export databáze v phpMyAdminu kvůli časovému omezení běhu PHP skriptu.</p>
+<p>Napsal jsem proto jednoduchý nástroj pro export databáze, který využívá HTML redirectu po exportování malého počtu řádků, který dtb. stroj ještě zvládne.</p>
+<p>Drobnou nevýhodou je nutnost spouštět ručně v prohlížeči. Nelze tedy spouštět automaticky cronem.</p>
+<h2>Download</h2>
+<p>Stažení je možné z githubu: <a href="http://github.com/kingofthejungle/Database-dumper">http://github.com/kingofthejungle/Database-dumper</a>.</p>
+<p>Nástroj má HTML rozhraní, kde je možné nastavit několik základních voleb.</p>
+<p>Otestován je na 300MB phpBB databázi, kterou úspěšně exportoval za několik minut.</p>
+<h2>Import</h2>
+<p>Zpětný import je možný například pomocí knihovny dibi a metody <span style="font-family: monospace;">loadFile</span>. Nebo ručně v phpMyAdminu.</p>
+<p>Budu rád za jakoukoliv odezvu a připomínky.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2010/database-dumper/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Backup&#8230;Format&#8230;Restore&#8230;Fail!!!</title>
+		<link>http://blog.michalsvec.cz/2010/backup-format-restore-fail/</link>
+		<comments>http://blog.michalsvec.cz/2010/backup-format-restore-fail/#comments</comments>
+		<pubDate>Sat, 15 May 2010 18:56:07 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Mac]]></category>
+
+		<guid isPermaLink="false">http://blog.xn--vec-zza.eu/?p=81</guid>
+		<description><![CDATA[Po nočním a celodenním boji s reinstalací systému se zdá, že je všechno zpátky na svém místě. Chtěl bych proto popsat, co se mi stalo, jak se mi to stalo, jak jsem to opravil a jak se tomu vyhnout. Důvod Při instalaci Mac OS X jsem si zvolil case-sensitive souborový systém. Bylo to proto, že [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Po nočním a celodenním boji s reinstalací systému se zdá, že je všechno zpátky na svém místě. Chtěl bych proto popsat, co se mi stalo, jak se mi to stalo, jak jsem to opravil a jak se tomu vyhnout.</p>
+<p><span id="more-81"></span></p>
+<h2>Důvod</h2>
+<p>Při instalaci Mac OS X jsem si zvolil case-sensitive souborový systém. Bylo to proto, že jsem přecházel z linuxu a připadalo mi to lepší než přístup windows a ignorace malých a velkých písmen. To se později ukázalo jako chyba.</p>
+<p>Když jsem si po čase chtěl nainstalovat aplikace, které běží jak na windows, tak na Macu, narazil jsem na problém. Tyto aplikace vyžadovaly ne-case-sensitive souborový systém. Rozhodl jsem se tedy, že přeformátuji disk. Jako nejjednodušší způsob se jevilo zazálohování všech dat na Time machine disk, formát a obnovení celého disku. jelikož se nic neměnilo, předpokládal jsem, že to bude bez problémů. To byl však omyl.</p>
+<h2>Co nastalo</h2>
+<p>Průběh popíšu v bodech, abych se nemusel rozepisovat do dlouhých odstavců:</p>
+<ul>
+<li>Záloha a formát proběhly v pořádku, tak jsem začal obnovovat disk z Time machine pomocí nástroje dostupného z instalačního DVD.</li>
+<li>Obnova začala bez problémů, podle informací měla trvat zhruba 4 hodiny.</li>
+<li>Po deseti minutách se obnova zasekla a objevilo se okno s výpisem konzole bez nějaké smysluplnější hlášky. Pouze dva bílé řádky.</li>
+<li>Nepanikařil jsem, protože Honza Březina na Mujmacu psal, že se mu také obnova zasekla a že pomohl restart a znovu spuštění.</li>
+<li>Znovu jsem pustil obnovu a znovu se zasekla.</li>
+<li>Několikrát jsem pustil obnovu a několikrát se zasekla.</li>
+<li>Zkusil jsem zkontrolovat Time machine  disk. Byl poškozený a tak jsem pustil opravu. Oprava se nezdařila, objevila se mi pouze hláška, že mám disk naformátovat a provést backup znovu. Málem to se mnou seklo, protože jsem na tom disku měl všechny složky s fotkami, školou, prací atd.</li>
+<li>Začal jsem hledat. Někde jsem našel odkaz na aplikaci DiskWarrior.</li>
+<li>Nainstaloval jsem čistou instalaci a spustil DiskWarrior. Ten disk opravil a data byla zpátky. Pustil jsem tedy Migration Assistent a obnovil si celý obsah zálohy zpět. Nejhorší problém byl zažehnán.</li>
+</ul>
+<h2>Druhý den</h2>
+<p>Celý systém běžel v pořádku. Další problémy nastaly, když jsem si chtěl stáhnout aktuální verzi zdrojových kodů z git repozitáře. Git neustále hlásil <em>error: inflate: data stream error (incorrect data check)</em>. Snažil jsem se přeinstalovat git, který jsem měl z mac ports, avšak bez úspěchu. Nakonec jsem zjistil, že to je poškozenými aplikacemi z macports nebo tím, že jsem neinstaloval Rosettu. Řešení tedy bylo, nainstalovat git pomocí <a href="http://code.google.com/p/git-osx-installer/">git installeru</a>. Tam ale problémy nekončily. mac ports v sobě obsahuje spoustu softwaru, který mi nešel nainstalovat bez Rosetty. Příkladem jsou některé závislosti balíku ffmpeg, které vyžadovaly typ balíku +darwin . Řešení, které mi zabralo celé odpoledne je:</p>
+<ol>
+<li><a href="http://guide.macports.org/chunked/installing.macports.uninstalling.html">smazat kompletně všechny složky macports</a>.</li>
+<li>Nainstalovat všechny updaty.</li>
+<li>Nainstalovat poslední update Xcode (u mě 3.2.2).</li>
+<li>Nainstalovat Rosettu.</li>
+<li>Nainstalovat všechno z macports znovu.</li>
+</ol>
+<h2>Doporučení pro příště</h2>
+<p>Co by se mohlo hodit při dalším zásahu do systému:</p>
+<ul>
+<li>Po kompletní záloze zkontrolovat disk s Time machine</li>
+<li>Nenechávat důležitá data pouze na disku s Time machine, ale zkopírovat je i na další disk. Vždy musí být minimálně na dvou místech. Toto pravidlo jsem formátem disku v MacBooku porušil.</li>
+<li>Nikdy nepoužívat case-sensitive filesystem</li>
+<li>Doporučil bych nepoužívat macports, ale pro mě je to nezbytné, prože potřebuji opencv, ffmpeg atd.</li>
+<li>Při obnově pomocí migration asistenta zmigrovat pouze domovskou složku a aplikace. Já jsem bohužel dal všechno a tím jsem si zadělal na problémy, jelikož se mi lišily verze a konfigurace systému(rosetta, updaty atd.).</li>
+</ul>
+<p>Doufám, že teď už jsou všechny problémy zažehnány a budu se moct těšit ze Steamu a dalších aplikací.</p>
+<h2>Shrnutí</h2>
+<p>Time machine je vynikající aplikace, ale disk nebyl ve vynikající formě. Nedoporučuji proto se spoléhat pouze na time machine a mít jí hlavně jako zálohu stavu systému a hodinové zálohy. Důležitá data, jako jsou fotky, dokumenty, zdrojové kódy atd. doporučuji buď ručně jednou za čas, nebo automatizované např. pomocí Apple scriptu zálohovat ještě někam jinam. Ten stres a napětí za to nestojí.</p>
+<p>Po obnově pomocí Migration assistenta bylo všechno tak, jak jsem měl před formátem. Spuštěné aplikace, jejich nastavení, nastavení systému, pozadí. Všechno. Problém byl však obnově ostatních systémových věcí.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2010/backup-format-restore-fail/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Revoluce v prezentacích &#8211; Prezi</title>
+		<link>http://blog.michalsvec.cz/2010/revoluce-v-prezentacich-prezi/</link>
+		<comments>http://blog.michalsvec.cz/2010/revoluce-v-prezentacich-prezi/#respond</comments>
+		<pubDate>Fri, 14 May 2010 17:51:38 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Web]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/?p=73</guid>
+		<description><![CDATA[Na přednášce ve škole jsem narazil na výbornou online aplikaci s názvem Prezi (česky se vyslovuje tak, jak se píše) a rád bych ji tu představil. Odkaz: http://www.prezi.com &#160; Úvod Celá aplikace je napsaná ve flashi. Proto doporučuji prohlížeč, který se s flashem dobře popere. To znamená vynechat testovací buildy nebo některé exotické kousky. Pro [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Na přednášce ve škole jsem narazil na výbornou online aplikaci s názvem Prezi (česky se vyslovuje tak, jak se píše) a rád bych ji tu představil.</p>
+<p>Odkaz: <a href="http://www.prezi.com">http://www.prezi.com</a></p>
+<p>&nbsp;</p>
+<h2><span id="more-73"></span></h2>
+<h2>Úvod</h2>
+<p>Celá aplikace je napsaná ve flashi. Proto doporučuji prohlížeč, který se s flashem dobře popere. To znamená vynechat testovací buildy nebo některé exotické kousky. Pro úplně nejlepší funkčnost na v OS X je nutná Opera, protože u té jediné se mi podařilo dostat do prezentace diakritiku. Firefox na MACu Prezi vůbec nepodporuje a ve webkitových prohlížečích (Safari a Chrome) nejde správně vkládat diakritika.</p>
+<p>Pro nás studenty je dostupná studentská licence, která umožňuje využívat výhod placených verzi. Konkrétně mít prezentaci privátní a nezobrazování loga Prezi na dolním okraji prezentace. Jediná zmínka o tom, že se jedná o studentskou verzi je při úvodním načítání prezentace.</p>
+<h2>Tvorba prezentace</h2>
+<p>Momentálně Prezi obsahuje 6 témat v několika barevných kombinacích. Mně osobně se líbí pouze základní bílé téma <em>clean Whitepaper</em> a tmavé <em>night Talk</em>. Jiné téma, než jedno z těchto šesti zatím nelze zvolit. Doufejme, že se nabídka v budoucnu rozšíří, popřípadě bude umožněno vytvářet témata vlastní.</p>
+<p>Při první úpravě prezentace se zobrazí úvodní video, ve kterém je shrnuto základní ovládání aplikace. Na toto video se doporučuji podívat, protože urychlí další tvorbu. Hlavní ovládací panel se nachází vlevo nahoře. Je to velmi rychlý a intuitivní způsob ovládání. Druhým ovládacím prvkem je ovládací zebra u každého prvku. Další možnost jak ovládat prezi je pomocí  klávesových zkratek cmd+[1-4], které slouží pro otáčení a zoomování.</p>
+<p>Celé ovládání je velmi snadné a člověk se ho nejlépe naučí zkoušením.</p>
+<h2>Doporučení při tvorbě</h2>
+<p>Doporučují začít tvorbu postupným rozmísťováním bloků informací na plochu. Není nutné řešit pozici, velikost a natočení. Na to přijde řada až v druhém kroku, kdy se související informace seskupí na společná místa, nastaví se jim velikost a propojí se pomocí cesty.</p>
+<p>Pro správné zacílení bodů na cestě se používají neviditelné rámečky pod položkou <em>Frame -&gt; hidden</em>. Při připnutí bodu na ně, se prezentace správně natočí a přiblíží tak, aby rámeček co nejlépe pasoval na obrazovku.</p>
+<p>Doporučuji také používat přednastavené geometrické tvary a rámečky. Celá prezentace pak působí daleko lépe. Stejně tak vkládané obrázky pro oživení.</p>
+<p>Nedoporučuji pracovat s moc malými objekty. Při velkém zmenšení je problém správně trefit objekt při manipulaci.</p>
+<h2>Ukázka</h2>
+<p>Následující prezentace je moje první dílo vytvořené pro školní účely do předmětu marketing. Jedná se o představení imaginárního přístroje, kterým je možné nastavit si vlastní sny.</p>
+<div class="prezi-player">
+<p><!-- .prezi-player { width: Testpx; } .prezi-player-links { text-align: center; } --><object id="prezi_0dfkypmoqdfk" width="540" height="400" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="flashvars" value="prezi_id=0dfkypmoqdfk&amp;lock_to_path=1&amp;color=ffffff&amp;autoplay=no" /><param name="src" value="http://prezi.com/bin/preziloader.swf" /><embed id="prezi_0dfkypmoqdfk" width="540" height="400" type="application/x-shockwave-flash" src="http://prezi.com/bin/preziloader.swf" allowfullscreen="true" allowscriptaccess="always" flashvars="prezi_id=0dfkypmoqdfk&amp;lock_to_path=1&amp;color=ffffff&amp;autoplay=no" /></object></p>
+<div class="prezi-player-links">
+<p><a title="Marketing FIT VUT v Brně" href="http://prezi.com/0dfkypmoqdfk/">Osobní tvořič snu</a> on <a href="http://prezi.com">Prezi</a></p>
+</div>
+</div>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2010/revoluce-v-prezentacich-prezi/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Zkušenosti s webhostingem Fatcow.com</title>
+		<link>http://blog.michalsvec.cz/2009/zkusenosti-s-webhostingem-fatcow-com/</link>
+		<comments>http://blog.michalsvec.cz/2009/zkusenosti-s-webhostingem-fatcow-com/#comments</comments>
+		<pubDate>Tue, 22 Sep 2009 17:56:00 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Web]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/?p=57</guid>
+		<description><![CDATA[Plusy Už zhruba měsíc hostuji na webhostingu Fatcow. S hostingem jsem zatím velmi spokojený. Sám jsem se několikrát přesvedčil o kvalitách jeho technické podpory. Odpověď přichází obvykle do několika minut, méně obvykle po několika hodinách. Zatím veškeré problémy se podařilo vyřešit. Jednou jsem využil i real-time chat s pracovníkem podpory. Další pozitivum je zpracování Control [&#8230;]]]></description>
+				<content:encoded><![CDATA[<h3>Plusy</h3>
+<p>Už zhruba měsíc hostuji na webhostingu <a href="http://fatcow.com">Fatcow</a>. S hostingem jsem zatím velmi spokojený. Sám jsem se několikrát přesvedčil o kvalitách jeho technické podpory. Odpověď přichází obvykle do několika minut, méně obvykle po několika hodinách. Zatím veškeré problémy se podařilo vyřešit. Jednou jsem využil i real-time chat s pracovníkem podpory.</p>
+<p>Další pozitivum je zpracování Control panelu. Je přehledný a intuitivní. U většiny nabízených služeb je nabízeno vždy několik alternativ.<br />
+Statistiky &#8211; AWstats, webalizer<br />
+Webmail &#8211;  AtMail, Horde, SquirrelMail</p>
+<p>Dobře je vyřešená také správa DNS záznamů a domén, kde je možné nastavit snad úplně všechno. Bohaté možnosti jsou i u nastavení a využití e-mailů. Ty jsem však nepoužil, jelikož využívám Google apps.  Hodí se také možnost nastavit používanou verzi PHP. Vynikající a neobvyklá věc je možnost editace souboru <em>php.ini</em>.</p>
+<p>Pro někoho může být použitelná například i podpora skriptování v pythonu nebo PERLu, nebo možnost instalování aplikací jako jsou diskuzní fóra, e-shopy, blogy, galerie atd.</p>
+<p>Celkově mi přijde celý webhosting  velmi kvalitní. Narazil jsem ale také na několik záporů.</p>
+<h2>Mínusy</h2>
+<p>MySQL databáze je brána jako add-on. Což ho nijak nezvýhodňuje, ale chybí podpora jiných typů databáze. Počet dotazů do MySQL databáze je omezen na 75 000. To pro může být problém například při indexování databáze. Konkrétně u generování vyhledávacího indexu u phpBB fóra.</p>
+<p>Další nepříjemnou věcí je absence CRONu.  To znamená, žádné rozesílání e-mailů, čištění logu a dočasných souborů atd.</p>
+<p>Některé další webhostingy nabízejí také verzovací systémy(nejčastěji SVN) . To však fatcow také nepodporuje.<br /><a href='http://monstersessay.com/write-my-essay/'>best essay writing services</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2009/zkusenosti-s-webhostingem-fatcow-com/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Cufón a české znaky</title>
+		<link>http://blog.michalsvec.cz/2009/cufon-a-ceske-znaky/</link>
+		<comments>http://blog.michalsvec.cz/2009/cufon-a-ceske-znaky/#comments</comments>
+		<pubDate>Thu, 23 Jul 2009 11:04:47 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Web]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/?p=35</guid>
+		<description><![CDATA[Cufón zajišťuje zobrazení uživatelských písem na webu. Funguje tak, že převede soubor s fonty na javascript, který poté nahradí příslušný text tagem &#60;canvas&#62;, do kterého vykreslí písmo. Podporuje všechny moderní prohlížeče a jeho zprovoznění je velmi jednoduché. Stačí si pouze vygenerovat příslušný javascriptový soubor, ten přilinkovat do HTML stránky a pomocí metody replace nahradit příslušný [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Cufón zajišťuje zobrazení uživatelských písem na webu. Funguje tak, že převede soubor s fonty na javascript, který poté nahradí příslušný text tagem &lt;canvas&gt;, do kterého vykreslí písmo. Podporuje všechny moderní prohlížeče a jeho zprovoznění je velmi jednoduché. Stačí si pouze vygenerovat příslušný javascriptový soubor, ten přilinkovat do HTML stránky a pomocí metody replace nahradit příslušný text obrázkovým písmem. Pro urychlení práce přidávám návod jak vygenerovat soubor s českými znaky.</p>
+<ol>
+<li>generátor se nachází na stránce <em><a href="http://cufon.shoqolate.com/generate/">http://cufon.shoqolate.com/generate/</a></em></li>
+<li>První 4 políčka jsou pro zadání souborů s písmem. Akceptované jsou pouze typy .ttf, .otf, .pfb a postscriptová písma.</li>
+<li>V dalším poli je možné nastavit volitelnou font-family pro vygenerované písmo.</li>
+<li>Checkboxem je nutné potvrdit, že font může být vystaven na webu.</li>
+<li>Dále je nutné nastavit, které znaky budou do výsledného balíčku zahrnuty. Nedoporučuje se zaškrtnout možnost <em>All</em>, protože by výsledný balík byl příliš velký. Doporučuji nastavit <strong>Basic latin</strong> (základní znaky &#8211; malá a velká písmena, kontrolní znaky), <strong>Numerals</strong>, <strong>Punctuation </strong>a do kolonky <em>.. and also these single characters </em>doplnit ještě následující znaky: <em>ěščřžýáíéťďňůúóĚŠČŘŽÝÁÍÉŮÚŤĎŇÓ</em>. Měly by to být všechny znaky se standardní českou diakritikou. Pokud nejaký chybí, upozorněte mě v komentrářích.</li>
+<li>Doporučuju nastavit také doménu, na které bude font použitý. Hodí se pro případ, že písmo není volně ke stažení nebo je kupované a nechcete, aby ho používal ještě někdo jiný.</li>
+<li>Další volby nejsou pro základní použití nutné.</li>
+<li>Zbývá už jen potvrdit podmínky služby <em>I acknowledge and accept these terms </em>a stáhnout vygenerovaný font.</li>
+</ol>
+<p>Po vygenerování je tedy nutné do hlavičky HTML stránky přidat odkaz na komprimovaný cufón(ke stažení <a href="http://cufon.shoqolate.com/js/cufon-yui.js">zde</a>) a na vygenerovaný balíček. Nahrazení se provede např. následovně: <em>Cufon.replace(&#8216;h1&#8217;);</em>. Toto volání nahradí všechny nadpisy první úrovně uživatelským fontem. Obsah hlavičky tedy může vypadat takto:</p>
+<pre>&lt;script src="cufon-yui.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="Vegur_300.font.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+  Cufon.replace('h1');
+&lt;/script&gt;</pre>
+<p>Pro další podrobnosti doporučuji navštívit přímo wiki projektu: <a href="http://wiki.github.com/sorccu/cufon/">http://wiki.github.com/sorccu/cufon/</a><br /><a href='http://onlinekasyno48.pl/'>gry maszynowe online</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2009/cufon-a-ceske-znaky/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		</item>
+		<item>
+		<title>EDUROAM a Wicd Manager</title>
+		<link>http://blog.michalsvec.cz/2009/eduroam-a-wicd-manager/</link>
+		<comments>http://blog.michalsvec.cz/2009/eduroam-a-wicd-manager/#respond</comments>
+		<pubDate>Mon, 09 Feb 2009 11:43:55 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Linux]]></category>
+		<category><![CDATA[eduroam]]></category>
+		<category><![CDATA[wicd]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/blog/?p=3</guid>
+		<description><![CDATA[Návod na připojení k wifi síti EDUROAM pomocí utility wicd manager, která je používána např. v KDE 4 při použití KDEmodu (http://kdemod.ath.cx/). V hlavním okně vidíme síť EDUROAM Stačí pouze rozbalit řádek se sítí EDUROAM a kliknout na advanced settings v tomto okne stačí zatrhnout Use Encryption, z roletoveho menu vybrat PEAP with TKIP a [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Návod na připojení k wifi síti EDUROAM pomocí utility wicd manager, která je používána např. v KDE 4 při použití KDEmodu (http://kdemod.ath.cx/).</p>
+<p>V hlavním okně vidíme síť EDUROAM</p>
+<p><img class="aligncenter size-full wp-image-16" title="wicd-main-window" src="/wp-content/uploads/wicd-main-window.png" alt="wicd-main-window" width="563" height="449" srcset="http://blog.michalsvec.cz/wp-content/uploads/wicd-main-window-300x239.png 300w, http://blog.michalsvec.cz/wp-content/uploads/wicd-main-window.png 563w" sizes="(max-width: 563px) 100vw, 563px" /></p>
+<p>Stačí pouze rozbalit řádek se sítí EDUROAM</p>
+<p><img class="aligncenter size-full wp-image-15" title="wicd-advanced" src="/wp-content/uploads/wicd-advanced.png" alt="wicd-advanced" width="536" height="181" srcset="http://blog.michalsvec.cz/wp-content/uploads/wicd-advanced-300x101.png 300w, http://blog.michalsvec.cz/wp-content/uploads/wicd-advanced.png 536w" sizes="(max-width: 536px) 100vw, 536px" /></p>
+<p>a kliknout na <em><strong>advanced settings</strong></em></p>
+<p><img class="aligncenter size-full wp-image-14" title="wicd-advanced-settings" src="/wp-content/uploads/wicd-advanced-settings.png" alt="wicd-advanced-settings" width="415" height="516" srcset="http://blog.michalsvec.cz/wp-content/uploads/wicd-advanced-settings-241x300.png 241w, http://blog.michalsvec.cz/wp-content/uploads/wicd-advanced-settings.png 415w" sizes="(max-width: 415px) 100vw, 415px" /></p>
+<p>v tomto okne stačí zatrhnout <strong><em>Use Encryption, </em></strong>z roletoveho menu vybrat<strong><em> PEAP with TKIP </em></strong>a vyplnit<br />
+<em>Identity:</em> login na radius server (u nás na fakultě je shodný s loginem do informačního systému)<br />
+<em>Password:</em> heslo na radius server<br />
+<em>Path to CA cert</em>: cesta k souboru s osobnim certifikatem (u me /home/uzivatel/sendert.crt)</p>
+<blockquote><p><em>Pozn.: Netestoval jsem ostatní nastavení. Toto se mi podařilo zprovoznit na první pokus, tím pádem jsem neměl potřebu zkoušet ostatní možnosti.</em></p></blockquote>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2009/eduroam-a-wicd-manager/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

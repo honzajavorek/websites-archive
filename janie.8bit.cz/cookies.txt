@@ -1,0 +1,6 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+pavca.8bit.cz	TRUE	/	FALSE	1999999999	bb2_screener_	1455665490+193.85.68.169
+terezka.8bit.cz	TRUE	/	FALSE	1999999999	bb2_screener_	1455665502+193.85.68.169
+janie.8bit.cz	TRUE	/	FALSE	1999999999	bb2_screener_	1455667304+193.85.68.169
+

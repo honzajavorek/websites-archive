@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Mac &#8211; &#8230;loading</title>
+	<atom:link href="http://blog.michalsvec.cz/category/mac/feed/" rel="self" type="application/rss+xml" />
+	<link>http://blog.michalsvec.cz</link>
+	<description></description>
+	<lastBuildDate>Sat, 15 Nov 2014 09:58:05 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	
+	<item>
+		<title>Nejlepší způsob zálohování</title>
+		<link>http://blog.michalsvec.cz/2011/nejlepsi-zpusob-zalohovani/</link>
+		<comments>http://blog.michalsvec.cz/2011/nejlepsi-zpusob-zalohovani/#respond</comments>
+		<pubDate>Sun, 24 Jul 2011 10:45:04 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Mac]]></category>
+		<category><![CDATA[backup]]></category>
+		<category><![CDATA[mac]]></category>
+		<category><![CDATA[rsync]]></category>
+
+		<guid isPermaLink="false">http://blog.michalsvec.cz/?p=118</guid>
+		<description><![CDATA[Jelikož se mi nedávno (i přesto, že jsem měl Time Machine zálohu) podařilo díky zapomnětlivosti opět přijít o některá data, zkoumal jsem jakým způsobem udělat automatické a rychlé zálohování. Pro MAC OS X existuje řada programů, které dokáží zálohovat aplikace, nastavení, složky atp. Některé z nich jsem vyzkoušel, ale nenašel jsem žádný, který by měl [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Jelikož se mi nedávno (i přesto, že jsem měl Time Machine zálohu) podařilo díky zapomnětlivosti <a href="http://blog.michalsvec.cz/2010/backup-format-restore-fail/">opět</a> přijít o některá data, zkoumal jsem jakým způsobem udělat automatické a rychlé zálohování. Pro MAC OS X existuje řada programů, které dokáží zálohovat aplikace, nastavení, složky atp. Některé z nich jsem vyzkoušel, ale nenašel jsem žádný, který by měl intuitivné ovládání, uměl zálohovat jak na disk, tak na vzdálený stroj pomocí SFTP a uměl dělat inkrementální zálohy.</p>
+<p>Naštěstí jsem na <a href="http://lifehacker.com">lifehackeru</a> narazil na <a href="http://lifehacker.com/196122/geek-to-live--mirror-files-across-systems-with-rsync">zajímavý článek</a>. Pomocí nástroje rsync je možné synchronizovat adresář. Oproti Time Machine nenabízí historii úprav, ale pro zálohu souborů je to skvělé řešení. Pokusím se proto popsat jednoduchý způsob jak nastavit zálohy na vzdálený server, externí disk popř. ze serveru na localhost.</p>
+<p><span id="more-118"></span></p>
+<p>Vzhledem k tomu, že rsync umožňuje synchronizaci přes SSH, hodí se skvěle pro zálohování serverů na lokální počítač, ale i pro zálohování lokálního počítače na vzdálený stroj. V mém případě je to počítač doma, který jednou za čas nechám zapnout a nakopíruju na něj všechna data. Výhodou rsyncu je, že umoňuje přenášet pouze patche souborů (jen části, které byly v souboru změněny). Ušetří se tak bandwidth a zkrátí čas potřebný pro upload. Při zálohování na externí disk je lepší tuto možnost vypnout, jelikož více zatěžuje procesor.</p>
+<p>Možností pro zálohu ne nespočetně. Je možné vybírat jen určité soubory, nebo naopak určité soubory ignorovat. Je možné také omezit soubory podle velikosti atd.</p>
+<h2>Ukázka skriptu</h2>
+<p>Pro jednoduché a rychlé nastavení zálohoví je možné použít můj skript, který mám ozkoušený. Další informace nabízí manuálová stránka rsyncu nebo internet, kde je možné nalézt velké množství návodů.</p>
+<h3>Záloha na vzdáleny stroj</h3>
+<pre class="brush:bash">rsync -avzW -S --delete --exclude-from=ignore.txt /Users/ uzivatel@vzdaleny-stroj.cz:/home/uzivatel/zaloha/</pre>
+<h3>Záloha na externí disk</h3>
+<pre class="brush:bash">rsync -avz -S --delete --exclude-from=ignore.txt  /Users/ /Volumes/HDD/backup/</pre>
+<h3 class="brush:bash">Popis parametrů</h3>
+<ul>
+<li><em>-a</em>  archive mode: rekurzivne prochází a zachovává linky, práva, timestamp, owner a group</li>
+<li><em>-v</em>  verbose režim: vypisuje hlášky do konzole</li>
+<li><em>-z</em>  zapnutí komprese přenášených dat</li>
+<li><em>-r</em>  rekurzivní procházení adresářů (nemusí se uvádět při použití přepínače <em>a</em>)</li>
+<li><em>-u</em>  nepřepíše soubory, které jsou v cílové složce modifikované</li>
+<li><em>&#8211;progress </em> zobrazí postup během zálohy v konzoli</li>
+<li><em>&#8211;delete  </em>pokud je v cílové složce soubor, který není zároveň ve zdrojové, tak ho smaže</li>
+<li><em>-W</em>  vypne přenášení změněných částí souboru (přenáší celé změněné soubory) &#8211; méně náročné na procesor</li>
+<li><em>&#8211;exclude-from=soubor.txt</em>  vyřadí soubory uvedené v <em>soubor.txt</em> ze zálohování</li>
+</ul>
+<p><span class="Apple-style-span" style="font-size: 20px;"><strong><br />
+</strong></span></p>
+<div>Doufám, že tímto moje strasti při obnovování systému končí a budu mít vždy funkční zálohu nejméně na dvou místech. Rád se dozvím o dalších možnostech konfigurace nebo o jiných nástrojích pro zálohu systému v komentářích. Pochybuju ale, že rsync bude něčím překonán.
+</div>
+<div><span style="color: #999999;"><br />A na závěr obligátní upozornění, že neručim za škody způsobené používáním rsyncu.</span></div>
+<p><a href='http://igrat-avtomaty-vulkan.com/'>игровые автоматы играть бесплатно вулкан</a><br /><a href='http://onlinekasyno48.pl/'>http://onlinekasyno48.pl/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2011/nejlepsi-zpusob-zalohovani/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Proč se rozhodnout pro MAC?</title>
+		<link>http://blog.michalsvec.cz/2010/proc-se-rozhodnout-pro-mac/</link>
+		<comments>http://blog.michalsvec.cz/2010/proc-se-rozhodnout-pro-mac/#respond</comments>
+		<pubDate>Mon, 06 Sep 2010 23:52:27 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Mac]]></category>
+
+		<guid isPermaLink="false">http://blog.michalsvec.cz/?p=109</guid>
+		<description><![CDATA[MacBook mám už nějaký ten pátek, tak bych se také rád podělil o svůj pohled na věc. Proč jsem si ho pořídil já? Moje začátky s PC sahají do dob MS-DOSu. Postupem času jsem přešel přes skoro všechny verze Windows, až jsem se dostal k Linuxu. U toho jsem vydržel zhruba dva roky, za které [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>MacBook mám už nějaký ten pátek, tak bych se také rád podělil o svůj pohled na věc.</p>
+<p><span id="more-109"></span></p>
+<h2>Proč jsem si ho pořídil já?</h2>
+<p>Moje začátky s PC sahají do dob MS-DOSu. Postupem času jsem přešel přes skoro všechny verze Windows, až jsem se dostal k Linuxu. U toho jsem vydržel zhruba dva roky, za které jsem se dost naučil Vyzkoušel jsem několik distribucí, ale stále jsem nebyl spokojen. Oproti Windows měl Linux nespočet výhod. Balíčkovací systém místo těžkopádné instalace aplikací, updaty aplikací skoro každý den, vynikající možnost práce s příkazovou řádkou, home partition, která skvěle usnadňuje zálohu a spoustu dalších věcí. S Linuxem jsem byl nějaký čas spokojený.</p>
+<p>Horší to však bylo s aplikacemi. Velká většina z nich byly programy špatně ovladatelné, chybové, padající a nespolehlivé. Ve výsledku to znamenalo, že jsem trávil poměrně dost času laděním aplikací, hledáním chyb a jejich řešení, neustálým nastavováním a podobnými věcmi. Když pak přišel update systému, nebo se nějaký soubor poškodil, znamenalo to další komplikace. Podpora multimédií na tom nebyla o moc lépe.</p>
+<p>Po menším přesvědčování v mém okolí jsem se rozhodl, že to zkusím.</p>
+<h2>Začátky s MACem</h2>
+<p>První dva týdny byly opravdu krušné. Změnu v ovládání jsem nemohl přenést přes srdce. Podivná práce s plochami, Dock, ovládání oken na levé straně, iTunes a další věci, na které jsem nebyl zvyklý mi nenechaly pár dní spát. Po týdnu používání jsem byl dokonce rozhodnut MacBook prodat a pořídit si klasický notebook. Naštěstí jsem vydržel a postupně se problémy ztrácely, zvykal jsem si na ovládání a odlišnosti a nakonec jsem skončil skoro úplně spokojen.</p>
+<p>Skvělé je jak zpracování notebooku, tak operační systém (který se na spokojenosti podepisuje více).</p>
+<h2>Pořád není jasné, co je na tom tak skvělé!</h2>
+<p>Co se týče hardwaru, je vidět, že při návrhu inženýři Applu přemýšleli. Na spodní straně notebooku není žádný otvor. Nestane se tak, že když mám počítač na kolenou, tak se přehřívá. Výfuk i sání vzduchu, stejně tak jako reproduktory, je vyvedeno na zadní straně, před víkem. Stejně tak výstup na sluchátka je na straně, což je pro práci s notebookem na noách pohodlnější(můj předchozí notebook, měl tento výstup na přední straně).</p>
+<p>Další skvělou vlastností je výdrž na baterky, která se pohybuje okolo 4-5 hodin. Nesmím zapomenout ani na klávesnici, na které se píše přímo skvěle.</p>
+<p>Poněkud nepříjemná vlastnost je miniDVI port pro externí monitor, který vyžaduje redukci za cca 800 Kč, a pouze 2 USB porty, kde jeden je dokonce bez napájení, takže v něm nefunguje například externí USB harddisk.</p>
+<h2>Skvělý operační systém</h2>
+<p>Hlavní věcí, která děla MAC MACem, je MAC OS X. Vzhledově perfektně propracovaný, skvěle ovladatelný a stabilní systém, se kterým je radost pracovat. Když se člověk přenese přes nezvyklé prvky, jako je stabilní lišta u horního okraje obrazovky, ovládací tlačítka na levé straně a jiná práce s okny, začne si uvědomovat, že jednotnost vzhledu aplikací je vlastně pro dobro věci a že to usnadňuje orientaci v celém systému. Lišta na jednom místě má také svůj smysl. Člověk nemusí sledovat okno a ví, že vždy najde všechny volby u horního okraje obrazovky.</p>
+<p>Poměrně rychle jsem si zvykl i na <a href="http://en.wikipedia.org/wiki/Expos%C3%A9_(Mac_OS_X)" target="_blank">Exposé</a>. Zvláště když hledám ztracené okno, nebo potřebuji použít plochu. Práce s více plochami mě však nezaujala. K tomu se dostanu dále.</p>
+<h2>Základ jsou aplikace</h2>
+<p>Aplikace pro MAC OS X a Linux jsou neporovnatelné. Práce s nimi je příjemná, intuitivní a rychlá. Navíc i dobře vypadají na pohled. Aplikace je ve většině případů záležitost jednoho přetáhnutí myši a jejich smazaní taktéž. Všechna nastavení se uchovávají v domovské složce uživatele, takže po obnově systému je aplikace opět připravena fungovat tak, jako když jí uživatel naposledy vypnul. Aby aplikace nečekaně spadla se také stane jen málokdy.</p>
+<p>S dostupností aplikací je to různé. Existuje spousta volně dostupného softwaru, který je navíc i kvalitní. Stále je tu ale dost aplikací, které jsou placené. Někdy stačí na nákup několik dolarů, jindy se cena vyšplhá i ke stovce.</p>
+<h2>Už jsem přesvědčen, ale jsou tu ještě nějaké výhody?</h2>
+<p>MAC má spoustu užitečných funkcí a vychytávek o kterých už bylo napsáno mnoho článků. Proto už jen krátce zmíním ty věci, které jsem dosud nezmínil a které stojí za řeč.</p>
+<p>První z nich je Time machine. Skvělý automatický zálohovací software, který mi dodává takový pocit jistoty, jaký je zmiňován v mnoha televizních reklamách. Při ztrátě dat, nebo přepsání důležitých souborů je dostupná hodinová záloha. Po reinstalaci systému tak stačí spustit obnovu a systém je připraven k práci v takovém stavu, v jakém byl naposledy ponechám.</p>
+<p>Další skvělou věcí je podpora utilit známých z Linuxu. Bez problému je tak možné používat git, ssh a další CLI programy.</p>
+<h2>Vše má i svojí zápornou stránku</h2>
+<p>I když jsem zatím pouze chválil, tak jsou některé vlastnosti, které mi doposud vadí. Jak jsem zmiňoval výše, podpora ploch není pro mě úplně ideální. Je to z toho důvodu, že nelze nastavit, aby v přepínači aplikací (cmd+Tab) byly vidět pouze aplikace zobrazené pouze na aktuální ploše.</p>
+<p>Také jsem si zatím nezvykl na to, že chybí klávesy home a end, které jsem dřív hodně používal. Existuje za to sice náhrada v pohode cmd a šipek doleva a doprava, ale ta nefunguje všude a jednotně.</p>
+<p>Největší slabina na konec. Nevím zda jsem sám, ale mně iTunes nevyhovuje. Skvělá je integrace a služby, které nabízí. iTunes U, nebo sledování podcastu v něm je velmi přehledné a jednoduché, ale jako klasický přehrávač hudby už dost pokulhává.  Byl jsem zvyklý na skvělý Amarok. Oproti němu však iTunes nemá například řazení do fronty nebo záložkování ve stopách, což mi poměrně dost chybí. Nepříjemnou vlastností je také reakce na klávesu play. To se projeví například když chci zastavit film ve VLC. Bohužel jsem nenašel žádnou vhodnou alternativu.</p>
+<h2>Už je tu konec</h2>
+<p>To jsou mé postřehy po zhruba půl roce s MACem. Jsem rád, že jsem ho na začátku neprodal. Pracuje se mi na něm skvěle a jsem velice spokojený.<br /><a href='http://writermyessay.com/'>writing essay service </a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2010/proc-se-rozhodnout-pro-mac/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Combination of MAMP, RoR and MySQL database</title>
+		<link>http://blog.michalsvec.cz/2010/combination-of-mamp-ror-and-mysql-database/</link>
+		<comments>http://blog.michalsvec.cz/2010/combination-of-mamp-ror-and-mysql-database/#respond</comments>
+		<pubDate>Sun, 11 Jul 2010 17:46:05 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[English]]></category>
+		<category><![CDATA[Mac]]></category>
+
+		<guid isPermaLink="false">http://blog.xn--vec-zza.eu/?p=94</guid>
+		<description><![CDATA[I am PHP developer and on local machine, I am developing with MAMP. Excellent combination of Apache, PHP and MySQL. When I was testing Ruby on Rails, I wanted to use my current MySQL databases from MAMP. It wasn&#8217;t so easy as I expected. Here is one possible sollution: Install MySQL with Homebrew. brew install [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>I am PHP developer and on local machine, I am developing with MAMP. Excellent combination of Apache, PHP and MySQL. When I was testing Ruby on Rails, I wanted to use my current MySQL databases from MAMP. It wasn&#8217;t so easy as I expected. Here is one possible sollution:<span id="more-94"></span></p>
+<ol>
+<li> Install MySQL with <a href="http://mxcl.github.com/homebrew/">Homebrew</a>.
+<pre class="brush:bash">brew install mysql</pre>
+</li>
+<li>Install MySQL gem
+<pre class="brush:bash">gem install mysql</pre>
+</li>
+<li>Set the socket in the database connection in <em>database.yml</em> to:
+<pre class="brush:bash">    adapter:  mysql
+    database: dbname
+    username: user
+    password: pass
+    socket: /Applications/MAMP/tmp/mysql/mysql.sock</pre>
+</li>
+<li>Start Mongrel with
+<pre class="brush: bash">script/server</pre>
+</li>
+</ol>
+<p>If you will run to troubles with this message:</p>
+<pre class="brush: bash">Status: 500 Internal Server Error
+uninitialized constant MysqlCompat::MysqlRes</pre>
+<p>run this command:</p>
+<pre class="brush:bash">export ARCHFLAGS="-arch i386 -arch x86_64"
+gem install mysql -- --with-mysql-dir=/usr/local --with-mysql-config=/usr/local/bin/mysql_config</pre>
+<hr />I hope, this will help. If you have better sollution, let me know in comments.</p>
+<div style="size: 8px;">Sources:<br />
+http://ozmm.org/posts/homebrew___mysql___snow_leopard.html<br />
+http://stribny.name/zapisnik/?clanky/ruby-on-rails-na-mac-os</div>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2010/combination-of-mamp-ror-and-mysql-database/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Backup&#8230;Format&#8230;Restore&#8230;Fail!!!</title>
+		<link>http://blog.michalsvec.cz/2010/backup-format-restore-fail/</link>
+		<comments>http://blog.michalsvec.cz/2010/backup-format-restore-fail/#comments</comments>
+		<pubDate>Sat, 15 May 2010 18:56:07 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Mac]]></category>
+
+		<guid isPermaLink="false">http://blog.xn--vec-zza.eu/?p=81</guid>
+		<description><![CDATA[Po nočním a celodenním boji s reinstalací systému se zdá, že je všechno zpátky na svém místě. Chtěl bych proto popsat, co se mi stalo, jak se mi to stalo, jak jsem to opravil a jak se tomu vyhnout. Důvod Při instalaci Mac OS X jsem si zvolil case-sensitive souborový systém. Bylo to proto, že [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Po nočním a celodenním boji s reinstalací systému se zdá, že je všechno zpátky na svém místě. Chtěl bych proto popsat, co se mi stalo, jak se mi to stalo, jak jsem to opravil a jak se tomu vyhnout.</p>
+<p><span id="more-81"></span></p>
+<h2>Důvod</h2>
+<p>Při instalaci Mac OS X jsem si zvolil case-sensitive souborový systém. Bylo to proto, že jsem přecházel z linuxu a připadalo mi to lepší než přístup windows a ignorace malých a velkých písmen. To se později ukázalo jako chyba.</p>
+<p>Když jsem si po čase chtěl nainstalovat aplikace, které běží jak na windows, tak na Macu, narazil jsem na problém. Tyto aplikace vyžadovaly ne-case-sensitive souborový systém. Rozhodl jsem se tedy, že přeformátuji disk. Jako nejjednodušší způsob se jevilo zazálohování všech dat na Time machine disk, formát a obnovení celého disku. jelikož se nic neměnilo, předpokládal jsem, že to bude bez problémů. To byl však omyl.</p>
+<h2>Co nastalo</h2>
+<p>Průběh popíšu v bodech, abych se nemusel rozepisovat do dlouhých odstavců:</p>
+<ul>
+<li>Záloha a formát proběhly v pořádku, tak jsem začal obnovovat disk z Time machine pomocí nástroje dostupného z instalačního DVD.</li>
+<li>Obnova začala bez problémů, podle informací měla trvat zhruba 4 hodiny.</li>
+<li>Po deseti minutách se obnova zasekla a objevilo se okno s výpisem konzole bez nějaké smysluplnější hlášky. Pouze dva bílé řádky.</li>
+<li>Nepanikařil jsem, protože Honza Březina na Mujmacu psal, že se mu také obnova zasekla a že pomohl restart a znovu spuštění.</li>
+<li>Znovu jsem pustil obnovu a znovu se zasekla.</li>
+<li>Několikrát jsem pustil obnovu a několikrát se zasekla.</li>
+<li>Zkusil jsem zkontrolovat Time machine  disk. Byl poškozený a tak jsem pustil opravu. Oprava se nezdařila, objevila se mi pouze hláška, že mám disk naformátovat a provést backup znovu. Málem to se mnou seklo, protože jsem na tom disku měl všechny složky s fotkami, školou, prací atd.</li>
+<li>Začal jsem hledat. Někde jsem našel odkaz na aplikaci DiskWarrior.</li>
+<li>Nainstaloval jsem čistou instalaci a spustil DiskWarrior. Ten disk opravil a data byla zpátky. Pustil jsem tedy Migration Assistent a obnovil si celý obsah zálohy zpět. Nejhorší problém byl zažehnán.</li>
+</ul>
+<h2>Druhý den</h2>
+<p>Celý systém běžel v pořádku. Další problémy nastaly, když jsem si chtěl stáhnout aktuální verzi zdrojových kodů z git repozitáře. Git neustále hlásil <em>error: inflate: data stream error (incorrect data check)</em>. Snažil jsem se přeinstalovat git, který jsem měl z mac ports, avšak bez úspěchu. Nakonec jsem zjistil, že to je poškozenými aplikacemi z macports nebo tím, že jsem neinstaloval Rosettu. Řešení tedy bylo, nainstalovat git pomocí <a href="http://code.google.com/p/git-osx-installer/">git installeru</a>. Tam ale problémy nekončily. mac ports v sobě obsahuje spoustu softwaru, který mi nešel nainstalovat bez Rosetty. Příkladem jsou některé závislosti balíku ffmpeg, které vyžadovaly typ balíku +darwin . Řešení, které mi zabralo celé odpoledne je:</p>
+<ol>
+<li><a href="http://guide.macports.org/chunked/installing.macports.uninstalling.html">smazat kompletně všechny složky macports</a>.</li>
+<li>Nainstalovat všechny updaty.</li>
+<li>Nainstalovat poslední update Xcode (u mě 3.2.2).</li>
+<li>Nainstalovat Rosettu.</li>
+<li>Nainstalovat všechno z macports znovu.</li>
+</ol>
+<h2>Doporučení pro příště</h2>
+<p>Co by se mohlo hodit při dalším zásahu do systému:</p>
+<ul>
+<li>Po kompletní záloze zkontrolovat disk s Time machine</li>
+<li>Nenechávat důležitá data pouze na disku s Time machine, ale zkopírovat je i na další disk. Vždy musí být minimálně na dvou místech. Toto pravidlo jsem formátem disku v MacBooku porušil.</li>
+<li>Nikdy nepoužívat case-sensitive filesystem</li>
+<li>Doporučil bych nepoužívat macports, ale pro mě je to nezbytné, prože potřebuji opencv, ffmpeg atd.</li>
+<li>Při obnově pomocí migration asistenta zmigrovat pouze domovskou složku a aplikace. Já jsem bohužel dal všechno a tím jsem si zadělal na problémy, jelikož se mi lišily verze a konfigurace systému(rosetta, updaty atd.).</li>
+</ul>
+<p>Doufám, že teď už jsou všechny problémy zažehnány a budu se moct těšit ze Steamu a dalších aplikací.</p>
+<h2>Shrnutí</h2>
+<p>Time machine je vynikající aplikace, ale disk nebyl ve vynikající formě. Nedoporučuji proto se spoléhat pouze na time machine a mít jí hlavně jako zálohu stavu systému a hodinové zálohy. Důležitá data, jako jsou fotky, dokumenty, zdrojové kódy atd. doporučuji buď ručně jednou za čas, nebo automatizované např. pomocí Apple scriptu zálohovat ještě někam jinam. Ten stres a napětí za to nestojí.</p>
+<p>Po obnově pomocí Migration assistenta bylo všechno tak, jak jsem měl před formátem. Spuštěné aplikace, jejich nastavení, nastavení systému, pozadí. Všechno. Problém byl však obnově ostatních systémových věcí.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2010/backup-format-restore-fail/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+	</channel>
+</rss>

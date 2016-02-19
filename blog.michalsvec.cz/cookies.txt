@@ -1,0 +1,6 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+blog.michalsvec.cz	TRUE	/	FALSE	1999999999	wordpress_test_cookie	WP+Cookie+check
+blog.michalsvec.cz	TRUE	/	FALSE	1999999999	wfvt_276544988	56c39a99966a5
+blog.michalsvec.cz	TRUE	/	FALSE	1999999999	wordfence_verifiedHuman	e048d6eea0
+

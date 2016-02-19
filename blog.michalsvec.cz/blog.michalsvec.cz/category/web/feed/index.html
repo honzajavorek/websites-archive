@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Web &#8211; &#8230;loading</title>
+	<atom:link href="http://blog.michalsvec.cz/category/web/feed/" rel="self" type="application/rss+xml" />
+	<link>http://blog.michalsvec.cz</link>
+	<description></description>
+	<lastBuildDate>Sat, 15 Nov 2014 09:58:05 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	
+	<item>
+		<title>Database dumper</title>
+		<link>http://blog.michalsvec.cz/2010/database-dumper/</link>
+		<comments>http://blog.michalsvec.cz/2010/database-dumper/#respond</comments>
+		<pubDate>Sun, 27 Jun 2010 13:26:31 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Web]]></category>
+		<category><![CDATA[database]]></category>
+		<category><![CDATA[dump]]></category>
+		<category><![CDATA[tool]]></category>
+
+		<guid isPermaLink="false">http://blog.xn--vec-zza.eu/?p=90</guid>
+		<description><![CDATA[Na githubu jsem vyvěsil skript pro export velkých databází. Hlavním důvodem pro jeho napsání byl neskutečně pomalý databázový stroj webhostingu Fatcow, který nedovolil export databáze v phpMyAdminu kvůli časovému omezení běhu PHP skriptu. Napsal jsem proto jednoduchý nástroj pro export databáze, který využívá HTML redirectu po exportování malého počtu řádků, který dtb. stroj ještě zvládne. [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Na githubu jsem vyvěsil skript pro export velkých databází. Hlavním důvodem pro jeho napsání byl neskutečně pomalý databázový stroj webhostingu Fatcow, který nedovolil export databáze v phpMyAdminu kvůli časovému omezení běhu PHP skriptu.</p>
+<p>Napsal jsem proto jednoduchý nástroj pro export databáze, který využívá HTML redirectu po exportování malého počtu řádků, který dtb. stroj ještě zvládne.</p>
+<p>Drobnou nevýhodou je nutnost spouštět ručně v prohlížeči. Nelze tedy spouštět automaticky cronem.</p>
+<h2>Download</h2>
+<p>Stažení je možné z githubu: <a href="http://github.com/kingofthejungle/Database-dumper">http://github.com/kingofthejungle/Database-dumper</a>.</p>
+<p>Nástroj má HTML rozhraní, kde je možné nastavit několik základních voleb.</p>
+<p>Otestován je na 300MB phpBB databázi, kterou úspěšně exportoval za několik minut.</p>
+<h2>Import</h2>
+<p>Zpětný import je možný například pomocí knihovny dibi a metody <span style="font-family: monospace;">loadFile</span>. Nebo ručně v phpMyAdminu.</p>
+<p>Budu rád za jakoukoliv odezvu a připomínky.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2010/database-dumper/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Revoluce v prezentacích &#8211; Prezi</title>
+		<link>http://blog.michalsvec.cz/2010/revoluce-v-prezentacich-prezi/</link>
+		<comments>http://blog.michalsvec.cz/2010/revoluce-v-prezentacich-prezi/#respond</comments>
+		<pubDate>Fri, 14 May 2010 17:51:38 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Web]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/?p=73</guid>
+		<description><![CDATA[Na přednášce ve škole jsem narazil na výbornou online aplikaci s názvem Prezi (česky se vyslovuje tak, jak se píše) a rád bych ji tu představil. Odkaz: http://www.prezi.com &#160; Úvod Celá aplikace je napsaná ve flashi. Proto doporučuji prohlížeč, který se s flashem dobře popere. To znamená vynechat testovací buildy nebo některé exotické kousky. Pro [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Na přednášce ve škole jsem narazil na výbornou online aplikaci s názvem Prezi (česky se vyslovuje tak, jak se píše) a rád bych ji tu představil.</p>
+<p>Odkaz: <a href="http://www.prezi.com">http://www.prezi.com</a></p>
+<p>&nbsp;</p>
+<h2><span id="more-73"></span></h2>
+<h2>Úvod</h2>
+<p>Celá aplikace je napsaná ve flashi. Proto doporučuji prohlížeč, který se s flashem dobře popere. To znamená vynechat testovací buildy nebo některé exotické kousky. Pro úplně nejlepší funkčnost na v OS X je nutná Opera, protože u té jediné se mi podařilo dostat do prezentace diakritiku. Firefox na MACu Prezi vůbec nepodporuje a ve webkitových prohlížečích (Safari a Chrome) nejde správně vkládat diakritika.</p>
+<p>Pro nás studenty je dostupná studentská licence, která umožňuje využívat výhod placených verzi. Konkrétně mít prezentaci privátní a nezobrazování loga Prezi na dolním okraji prezentace. Jediná zmínka o tom, že se jedná o studentskou verzi je při úvodním načítání prezentace.</p>
+<h2>Tvorba prezentace</h2>
+<p>Momentálně Prezi obsahuje 6 témat v několika barevných kombinacích. Mně osobně se líbí pouze základní bílé téma <em>clean Whitepaper</em> a tmavé <em>night Talk</em>. Jiné téma, než jedno z těchto šesti zatím nelze zvolit. Doufejme, že se nabídka v budoucnu rozšíří, popřípadě bude umožněno vytvářet témata vlastní.</p>
+<p>Při první úpravě prezentace se zobrazí úvodní video, ve kterém je shrnuto základní ovládání aplikace. Na toto video se doporučuji podívat, protože urychlí další tvorbu. Hlavní ovládací panel se nachází vlevo nahoře. Je to velmi rychlý a intuitivní způsob ovládání. Druhým ovládacím prvkem je ovládací zebra u každého prvku. Další možnost jak ovládat prezi je pomocí  klávesových zkratek cmd+[1-4], které slouží pro otáčení a zoomování.</p>
+<p>Celé ovládání je velmi snadné a člověk se ho nejlépe naučí zkoušením.</p>
+<h2>Doporučení při tvorbě</h2>
+<p>Doporučují začít tvorbu postupným rozmísťováním bloků informací na plochu. Není nutné řešit pozici, velikost a natočení. Na to přijde řada až v druhém kroku, kdy se související informace seskupí na společná místa, nastaví se jim velikost a propojí se pomocí cesty.</p>
+<p>Pro správné zacílení bodů na cestě se používají neviditelné rámečky pod položkou <em>Frame -&gt; hidden</em>. Při připnutí bodu na ně, se prezentace správně natočí a přiblíží tak, aby rámeček co nejlépe pasoval na obrazovku.</p>
+<p>Doporučuji také používat přednastavené geometrické tvary a rámečky. Celá prezentace pak působí daleko lépe. Stejně tak vkládané obrázky pro oživení.</p>
+<p>Nedoporučuji pracovat s moc malými objekty. Při velkém zmenšení je problém správně trefit objekt při manipulaci.</p>
+<h2>Ukázka</h2>
+<p>Následující prezentace je moje první dílo vytvořené pro školní účely do předmětu marketing. Jedná se o představení imaginárního přístroje, kterým je možné nastavit si vlastní sny.</p>
+<div class="prezi-player">
+<p><!-- .prezi-player { width: Testpx; } .prezi-player-links { text-align: center; } --><object id="prezi_0dfkypmoqdfk" width="540" height="400" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="flashvars" value="prezi_id=0dfkypmoqdfk&amp;lock_to_path=1&amp;color=ffffff&amp;autoplay=no" /><param name="src" value="http://prezi.com/bin/preziloader.swf" /><embed id="prezi_0dfkypmoqdfk" width="540" height="400" type="application/x-shockwave-flash" src="http://prezi.com/bin/preziloader.swf" allowfullscreen="true" allowscriptaccess="always" flashvars="prezi_id=0dfkypmoqdfk&amp;lock_to_path=1&amp;color=ffffff&amp;autoplay=no" /></object></p>
+<div class="prezi-player-links">
+<p><a title="Marketing FIT VUT v Brně" href="http://prezi.com/0dfkypmoqdfk/">Osobní tvořič snu</a> on <a href="http://prezi.com">Prezi</a></p>
+</div>
+</div>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2010/revoluce-v-prezentacich-prezi/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Zkušenosti s webhostingem Fatcow.com</title>
+		<link>http://blog.michalsvec.cz/2009/zkusenosti-s-webhostingem-fatcow-com/</link>
+		<comments>http://blog.michalsvec.cz/2009/zkusenosti-s-webhostingem-fatcow-com/#comments</comments>
+		<pubDate>Tue, 22 Sep 2009 17:56:00 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Web]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/?p=57</guid>
+		<description><![CDATA[Plusy Už zhruba měsíc hostuji na webhostingu Fatcow. S hostingem jsem zatím velmi spokojený. Sám jsem se několikrát přesvedčil o kvalitách jeho technické podpory. Odpověď přichází obvykle do několika minut, méně obvykle po několika hodinách. Zatím veškeré problémy se podařilo vyřešit. Jednou jsem využil i real-time chat s pracovníkem podpory. Další pozitivum je zpracování Control [&#8230;]]]></description>
+				<content:encoded><![CDATA[<h3>Plusy</h3>
+<p>Už zhruba měsíc hostuji na webhostingu <a href="http://fatcow.com">Fatcow</a>. S hostingem jsem zatím velmi spokojený. Sám jsem se několikrát přesvedčil o kvalitách jeho technické podpory. Odpověď přichází obvykle do několika minut, méně obvykle po několika hodinách. Zatím veškeré problémy se podařilo vyřešit. Jednou jsem využil i real-time chat s pracovníkem podpory.</p>
+<p>Další pozitivum je zpracování Control panelu. Je přehledný a intuitivní. U většiny nabízených služeb je nabízeno vždy několik alternativ.<br />
+Statistiky &#8211; AWstats, webalizer<br />
+Webmail &#8211;  AtMail, Horde, SquirrelMail</p>
+<p>Dobře je vyřešená také správa DNS záznamů a domén, kde je možné nastavit snad úplně všechno. Bohaté možnosti jsou i u nastavení a využití e-mailů. Ty jsem však nepoužil, jelikož využívám Google apps.  Hodí se také možnost nastavit používanou verzi PHP. Vynikající a neobvyklá věc je možnost editace souboru <em>php.ini</em>.</p>
+<p>Pro někoho může být použitelná například i podpora skriptování v pythonu nebo PERLu, nebo možnost instalování aplikací jako jsou diskuzní fóra, e-shopy, blogy, galerie atd.</p>
+<p>Celkově mi přijde celý webhosting  velmi kvalitní. Narazil jsem ale také na několik záporů.</p>
+<h2>Mínusy</h2>
+<p>MySQL databáze je brána jako add-on. Což ho nijak nezvýhodňuje, ale chybí podpora jiných typů databáze. Počet dotazů do MySQL databáze je omezen na 75 000. To pro může být problém například při indexování databáze. Konkrétně u generování vyhledávacího indexu u phpBB fóra.</p>
+<p>Další nepříjemnou věcí je absence CRONu.  To znamená, žádné rozesílání e-mailů, čištění logu a dočasných souborů atd.</p>
+<p>Některé další webhostingy nabízejí také verzovací systémy(nejčastěji SVN) . To však fatcow také nepodporuje.<br /><a href='http://monstersessay.com/write-my-essay/'>best essay writing services</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2009/zkusenosti-s-webhostingem-fatcow-com/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Recoder launched</title>
+		<link>http://blog.michalsvec.cz/2009/recoder-launched/</link>
+		<comments>http://blog.michalsvec.cz/2009/recoder-launched/#respond</comments>
+		<pubDate>Tue, 22 Sep 2009 16:55:04 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[English]]></category>
+		<category><![CDATA[Web]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/?p=51</guid>
+		<description><![CDATA[I&#8217;ve just launched online file recoder. It is tool intended to change file encoding from one to another. You can use it for fixing movie subtitles encoding, Note, that it is only beta. You can report bugs or suggest new features here. New input and output encodings will be available in future versions.]]></description>
+				<content:encoded><![CDATA[<p>I&#8217;ve just launched <a href="http://recoder.ufb.cz">online file recoder</a>. It is tool intended to change file encoding from one to another. You can use it for fixing movie subtitles encoding,</p>
+<p>Note, that it is only beta. You can report bugs or suggest new features <a href="http://featurelist.org/projects/details/recoder">here</a>. New input and output encodings will be available in future versions.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2009/recoder-launched/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Cufón a české znaky</title>
+		<link>http://blog.michalsvec.cz/2009/cufon-a-ceske-znaky/</link>
+		<comments>http://blog.michalsvec.cz/2009/cufon-a-ceske-znaky/#comments</comments>
+		<pubDate>Thu, 23 Jul 2009 11:04:47 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[Česky]]></category>
+		<category><![CDATA[Web]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/?p=35</guid>
+		<description><![CDATA[Cufón zajišťuje zobrazení uživatelských písem na webu. Funguje tak, že převede soubor s fonty na javascript, který poté nahradí příslušný text tagem &#60;canvas&#62;, do kterého vykreslí písmo. Podporuje všechny moderní prohlížeče a jeho zprovoznění je velmi jednoduché. Stačí si pouze vygenerovat příslušný javascriptový soubor, ten přilinkovat do HTML stránky a pomocí metody replace nahradit příslušný [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Cufón zajišťuje zobrazení uživatelských písem na webu. Funguje tak, že převede soubor s fonty na javascript, který poté nahradí příslušný text tagem &lt;canvas&gt;, do kterého vykreslí písmo. Podporuje všechny moderní prohlížeče a jeho zprovoznění je velmi jednoduché. Stačí si pouze vygenerovat příslušný javascriptový soubor, ten přilinkovat do HTML stránky a pomocí metody replace nahradit příslušný text obrázkovým písmem. Pro urychlení práce přidávám návod jak vygenerovat soubor s českými znaky.</p>
+<ol>
+<li>generátor se nachází na stránce <em><a href="http://cufon.shoqolate.com/generate/">http://cufon.shoqolate.com/generate/</a></em></li>
+<li>První 4 políčka jsou pro zadání souborů s písmem. Akceptované jsou pouze typy .ttf, .otf, .pfb a postscriptová písma.</li>
+<li>V dalším poli je možné nastavit volitelnou font-family pro vygenerované písmo.</li>
+<li>Checkboxem je nutné potvrdit, že font může být vystaven na webu.</li>
+<li>Dále je nutné nastavit, které znaky budou do výsledného balíčku zahrnuty. Nedoporučuje se zaškrtnout možnost <em>All</em>, protože by výsledný balík byl příliš velký. Doporučuji nastavit <strong>Basic latin</strong> (základní znaky &#8211; malá a velká písmena, kontrolní znaky), <strong>Numerals</strong>, <strong>Punctuation </strong>a do kolonky <em>.. and also these single characters </em>doplnit ještě následující znaky: <em>ěščřžýáíéťďňůúóĚŠČŘŽÝÁÍÉŮÚŤĎŇÓ</em>. Měly by to být všechny znaky se standardní českou diakritikou. Pokud nejaký chybí, upozorněte mě v komentrářích.</li>
+<li>Doporučuju nastavit také doménu, na které bude font použitý. Hodí se pro případ, že písmo není volně ke stažení nebo je kupované a nechcete, aby ho používal ještě někdo jiný.</li>
+<li>Další volby nejsou pro základní použití nutné.</li>
+<li>Zbývá už jen potvrdit podmínky služby <em>I acknowledge and accept these terms </em>a stáhnout vygenerovaný font.</li>
+</ol>
+<p>Po vygenerování je tedy nutné do hlavičky HTML stránky přidat odkaz na komprimovaný cufón(ke stažení <a href="http://cufon.shoqolate.com/js/cufon-yui.js">zde</a>) a na vygenerovaný balíček. Nahrazení se provede např. následovně: <em>Cufon.replace(&#8216;h1&#8217;);</em>. Toto volání nahradí všechny nadpisy první úrovně uživatelským fontem. Obsah hlavičky tedy může vypadat takto:</p>
+<pre>&lt;script src="cufon-yui.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="Vegur_300.font.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+  Cufon.replace('h1');
+&lt;/script&gt;</pre>
+<p>Pro další podrobnosti doporučuji navštívit přímo wiki projektu: <a href="http://wiki.github.com/sorccu/cufon/">http://wiki.github.com/sorccu/cufon/</a><br /><a href='http://onlinekasyno48.pl/'>gry maszynowe online</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2009/cufon-a-ceske-znaky/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		</item>
+		<item>
+		<title>Vertical centering</title>
+		<link>http://blog.michalsvec.cz/2009/vertical-centering/</link>
+		<comments>http://blog.michalsvec.cz/2009/vertical-centering/#comments</comments>
+		<pubDate>Wed, 11 Feb 2009 01:55:53 +0000</pubDate>
+		<dc:creator><![CDATA[Misa]]></dc:creator>
+				<category><![CDATA[English]]></category>
+		<category><![CDATA[Web]]></category>
+		<category><![CDATA[center]]></category>
+		<category><![CDATA[css]]></category>
+		<category><![CDATA[html]]></category>
+		<category><![CDATA[jquery]]></category>
+		<category><![CDATA[vertical]]></category>
+
+		<guid isPermaLink="false">http://misa.ufb.cz/blog/?p=20</guid>
+		<description><![CDATA[Simple and elegant vertical HTML centering. All we need is jQuery (jquery.com). With simple snipet, we can center whatever we want inside any element. The idea is simple: move child element to vertical center with margin-top. Everything you have to do is put this simple code into head of your html file. &#60;script type="text/javascript"&#62; $(document).ready(function(){ [&#8230;]]]></description>
+				<content:encoded><![CDATA[<p>Simple and elegant vertical HTML centering.</p>
+<p>All we need is jQuery (<a href="http://www.jquery.com">jquery.com</a>). With simple snipet, we can center whatever we want inside any element. The idea is simple: move child element to vertical center with margin-top.</p>
+<p>Everything you have to do is put this simple code into head of your html file.</p>
+<pre>&lt;script type="text/javascript"&gt;</pre>
+<pre>$(document).ready(function(){</pre>
+<pre>    $('.vc').each(function(){</pre>
+<pre>        var thish = $(this).height();</pre>
+<pre>        var parenth = $(this).parent().height();</pre>
+<pre>        var topmargin = (parenth - thish) / 2;</pre>
+<pre>        $(this).css('margin-top', topmargin);</pre>
+<pre>    });</pre>
+<pre>});</pre>
+<pre>&lt;/script&gt;</pre>
+<p>This should work on all elementswith class <em><strong>.vc</strong></em>.</p>
+<p>If you want it like function you should check <a href="http://seodenver.com/2008/09/08/simple-vertical-align-plugin-for-jquery/">this link</a>.<br /><a href='http://eventicketsale.com/Foo-Fighters-England-Tour-Tickets.html'>foo fighter concert dates</a><br /><a href='http://admiralavtomaty.com/igrosoft-besplatno/chukchi-man/'>http://admiralavtomaty.com/igrosoft-besplatno/chukchi-man/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://blog.michalsvec.cz/2009/vertical-centering/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+	</channel>
+</rss>
